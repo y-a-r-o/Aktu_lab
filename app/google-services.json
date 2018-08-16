@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "554265035971",
+    "firebase_url": "https://aktu-lab-1bf6c.firebaseio.com",
+    "project_id": "aktu-lab-1bf6c",
+    "storage_bucket": "aktu-lab-1bf6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:554265035971:android:9a263e7678786c3f",
+        "android_client_info": {
+          "package_name": "com.example.lenovo_pc.aktu_lab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "554265035971-hj1h0pismgflghi7j30aqhv60p7t0m5f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lenovo_pc.aktu_lab",
+            "certificate_hash": "6efab422e06a34d6fe6781302b12aa0bb3835e63"
+          }
+        },
+        {
+          "client_id": "554265035971-ve74rpndkte5bjf9acl906g0u8st64fa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAMjGI6TrOLa5M33CGb_fBDIdm6ro2aQME"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "554265035971-ve74rpndkte5bjf9acl906g0u8st64fa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

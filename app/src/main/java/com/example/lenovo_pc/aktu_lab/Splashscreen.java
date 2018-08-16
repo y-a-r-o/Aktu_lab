@@ -11,16 +11,15 @@ public class Splashscreen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_splashscreen);
-        Thread myThread = new Thread(){
+        Thread myThread = new Thread() {
             @Override
             public void run() {
                 try {
-                    sleep(2000);
-                    Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+                    sleep(3000);
+                    Intent intent = new Intent(Splashscreen.this,LoginActivity.class);
                     startActivity(intent);
                     finish();
-                }
-                catch(InterruptedException e) {
+                } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
