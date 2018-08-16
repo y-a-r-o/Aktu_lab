@@ -28,4 +28,14 @@
     <string name="btn_sign_out">Sign Out</string>
     <string name="lbl_forgot_password">Forgot password?</string>
     <string name="forgot_password_msg">We just need your registered Email Id to sent you password reset instructions.</string>
+    <string name="title_home">Home</string>
+    <string name="title_search">Search</string>
+    <string name="title_myaccount">My Account</string>
+    <string name="todo">TODO</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="home_button">Home Button</string>
+    <string name="my_account_button">My Account Button</string>
+    <string name="search_button">Search Button</string>
 </resources>

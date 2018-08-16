@@ -7,16 +7,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link MyAccountFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link MyAccountFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class MyAccountFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -80,8 +74,7 @@ public class MyAccountFragment extends Fragment {
         if (context instanceof OnFragmentInteractionListener) {
             mListener = (OnFragmentInteractionListener) context;
         } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
+          //  Toast.makeText(context,"My Account",Toast.LENGTH_SHORT).show();
         }
     }
 
