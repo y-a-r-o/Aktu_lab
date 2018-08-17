@@ -1,9 +1,13 @@
 package com.example.lenovo_pc.aktu_lab;
 
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -16,6 +20,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SignupActivity extends AppCompatActivity {
 
@@ -94,8 +99,7 @@ public class SignupActivity extends AppCompatActivity {
                                     Toast.makeText(SignupActivity.this, "Authentication failed." + task.getException(),
                                             Toast.LENGTH_SHORT).show();
                                 } else {
-                                    startActivity(new Intent(SignupActivity.this, MainActivity.class));
-                                    finish();
+                                    SendEmailVerificationMessage();
                                 }
                             }
                         });
@@ -103,7 +107,58 @@ public class SignupActivity extends AppCompatActivity {
             }
         });
     }
+  /*  public class MyDialogFragment extends DialogFragment {
+        @Override
+        public Dialog onCreateDialog(Bundle savedInstanceState) {
 
+            // Use the Builder class for convenient dialog construction
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("App Title");
+            builder.setMessage("This is an alert with no consequence");
+            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // You don't have to do anything here if you just
+                    // want it dismissed when clicked
+                }
+            });
+
+            // Create the AlertDialog object and return it
+            return builder.create();
+        }
+    }*/
+
+    protected void SendEmailVerificationMessage()
+    {
+        FirebaseUser user = auth.getCurrentUser();
+
+        if (user != null)
+        {
+            user.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    if (task.isSuccessful())
+                    {
+                        Toast.makeText(SignupActivity.this, "Registration Successful, we've sent you a verification mail. Please check and verify your account...", Toast.LENGTH_SHORT).show();
+                        SendUserToLoginActivity();
+                        auth.signOut();
+                    }
+                    else
+                    {
+                        String error = task.getException().getMessage();
+                        Toast.makeText(SignupActivity.this, "Error: " + error, Toast.LENGTH_SHORT).show();
+                        auth.signOut();
+                    }
+                }
+            });
+        }
+    }
+
+    private void SendUserToLoginActivity()
+    {
+        startActivity(new Intent(SignupActivity.this, LoginActivity.class));
+        finish();
+    }
     @Override
     protected void onResume() {
         super.onResume();

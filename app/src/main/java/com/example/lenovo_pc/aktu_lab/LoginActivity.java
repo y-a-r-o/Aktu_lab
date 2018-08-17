@@ -16,12 +16,14 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
 
     private EditText inputEmail, inputPassword;
     private FirebaseAuth auth;
+    private Boolean emailAddressChecker;
     private ProgressBar progressBar;
     private Button btnSignup, btnLogin, btnReset;
     Toolbar toolbar;
@@ -99,13 +101,36 @@ public class LoginActivity extends AppCompatActivity {
                                         Toast.makeText(LoginActivity.this, getString(R.string.auth_failed), Toast.LENGTH_LONG).show();
                                     }
                                 } else {
-                                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
+                                    VerifyEmailAddress();
+
                                 }
                             }
                         });
             }
         });
     }
+
+    protected void VerifyEmailAddress()
+    {
+        FirebaseUser user = auth.getCurrentUser();
+        emailAddressChecker = user.isEmailVerified();
+
+        if(emailAddressChecker)
+        {
+            SendUserToMainActivity();
+        }
+        else
+        {
+            Toast.makeText(this, "Please verify your Account first...", Toast.LENGTH_LONG).show();
+            auth.signOut();
+        }
+
+    }
+    protected void SendUserToMainActivity()
+    {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
+
