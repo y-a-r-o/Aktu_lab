@@ -40,18 +40,16 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.navigation_search:
                     setTitle("Search");
-                    item.setChecked(true);
-
                     SearchFragment fragment2 =new SearchFragment();
+                    item.setChecked(true);
                     FragmentTransaction fragmentTransaction2= getSupportFragmentManager().beginTransaction();
                     fragmentTransaction2.replace(R.id.mainframe,fragment2,"Fragment");
                     fragmentTransaction2.commit();
-                    // transaction.replace(R.id.mainframe,new Sear chFragment()).commit();
+
                     break;
                 case R.id.navigation_myaccount:
                     setTitle("My Account");
                     item.setChecked(true);
-
                     MyAccountFragment fragment3 =new MyAccountFragment();
                     FragmentTransaction fragmentTransaction3= getSupportFragmentManager().beginTransaction();
                     fragmentTransaction3.replace(R.id.mainframe,fragment3,"Fragment");
