@@ -42,10 +42,9 @@
     <string name="seminars">Seminars</string>
     <string name="workshops">Workshops</string>
     <string name="aktulogo">aktulogo</string>
-    <string name="todo">TODO</string>
-    <string name="button">Button</string>
-    <string name="button">Button</string>
-    <string name="button">Button</string>
-    <string name="button">Button</string>
+    <string name="button3">My Bookings</string>
+    <string name="button4">Personal Info</string>
+    <string name="button5">About Us</string>
+    <string name="button7">Log Out</string>
 
 </resources>

@@ -39,7 +39,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
-            android:background="@color/colorPrimaryDark"
+            android:background="@color/colorPrimary"
             android:text="@string/labs"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toTopOf="@+id/btn_seminars"
