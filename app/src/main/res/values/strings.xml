@@ -38,5 +38,9 @@
     <string name="home_button">Home Button</string>
     <string name="my_account_button">My Account Button</string>
     <string name="search">Search</string>
+    <string name="labs">Labs</string>
+    <string name="seminars">Seminars</string>
+    <string name="workshops">Workshops</string>
+    <string name="aktulogo">aktulogo</string>
 
 </resources>
