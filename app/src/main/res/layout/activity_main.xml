@@ -22,9 +22,10 @@
         android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:menu="@menu/navigation"
-
+        android:background="@color/colorPrimaryDark"
+        app:itemIconTint="@color/background"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:menu="@menu/navigation" />
 
 </android.support.constraint.ConstraintLayout>
