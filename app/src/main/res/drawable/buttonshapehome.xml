@@ -5,6 +5,6 @@
         />
 
     <solid
-        android:color="@color/myacbutton"
+        android:color="@color/colorPrimary"
         />
 </shape>
