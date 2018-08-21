@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/homefrag"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.example.lenovo_pc.aktu_lab.HomeFragment">
@@ -16,45 +17,38 @@
         <Button
             android:id="@+id/btn_workshop"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:background="@color/colorPrimary"
             android:text="@string/workshops"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            tools:layout_editor_absoluteX="16dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
-        <Button
-            android:id="@+id/btn_labs"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:background="@color/colorPrimary"
-            android:text="@string/labs"
-            android:textColor="@android:color/white"
-            app:layout_constraintBottom_toTopOf="@+id/btn_seminars"
-            tools:layout_editor_absoluteX="0dp" />
 
         <Button
             android:id="@+id/btn_labs3"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             android:background="@color/colorPrimary"
             android:text="@string/labs"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toTopOf="@+id/btn_seminars"
-            tools:layout_editor_absoluteX="0dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Button
             android:id="@+id/btn_seminars"
             android:layout_width="fill_parent"
-            android:layout_height="49dp"
+            android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             android:background="@color/colorPrimary"
             android:text="@string/seminars"
             android:textColor="@android:color/white"
             app:layout_constraintBottom_toTopOf="@+id/btn_workshop"
-            tools:layout_editor_absoluteX="16dp" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <ImageView
             android:id="@+id/aktu_logo"
