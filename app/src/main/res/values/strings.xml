@@ -46,5 +46,18 @@
     <string name="button4">Personal Info</string>
     <string name="button5">About Us</string>
     <string name="button7">Log Out</string>
+    <string name="civil">CIVIL</string>
+    <string name="information_technology">INFORMATION TECHNOLOGY</string>
+    <string name="mechanical">MECHANICAL</string>
+    <string name="electrical">ELECTRICAL</string>
+    <string name="electronics">ELECTRONICS</string>
+    <string name="computer_science">COMPUTER SCIENCE</string>
+    <string name="laboratories_available">LABORATORIES AVAILABLE</string>
+    <string name="aeronautical">AERONAUTICAL</string>
+    <string name="automobile">AUTOMOBILE</string>
+    <string name="food">FOOD</string>
+    <string name="paint">PAINT</string>
+    <string name="plastic">PLASTIC</string>
+    <string name="textile">TEXTILE</string>
 
 </resources>
