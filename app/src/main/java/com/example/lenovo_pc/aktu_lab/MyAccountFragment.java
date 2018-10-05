@@ -46,7 +46,7 @@ public class MyAccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_my_account, container, false);
-        b1=(Button)view.findViewById(R.id.button5);
+        b1=view.findViewById(R.id.button5);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

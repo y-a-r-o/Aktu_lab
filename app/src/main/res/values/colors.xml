@@ -20,4 +20,5 @@
     <color name="btn_logut_bg">#ff6861</color>
     <color name="color">#9ca700</color>
     <color name="myacbutton">#caaa52</color>
+    <color name="colorDark">#1b2631</color>
 </resources>
