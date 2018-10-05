@@ -3,6 +3,7 @@ package com.example.lenovo_pc.aktu_lab;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import static com.firebase.ui.auth.AuthUI.TAG;
 import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
 
@@ -33,7 +35,9 @@ import static com.firebase.ui.auth.AuthUI.getApplicationContext;
  */
 public class MyAccountFragment extends Fragment {
 
-    private FirebaseAuth auth;
+    private static final String TAG = "MyAccountFragment";
+    private FirebaseAuth.AuthStateListener mAuthStateListener;
+    private Button mSignOut;
     Button b1;
 
     public MyAccountFragment() {
@@ -49,18 +53,61 @@ public class MyAccountFragment extends Fragment {
         b1=view.findViewById(R.id.button5);
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                auth = FirebaseAuth.getInstance();
+            public void onClick(View v2) {
                 FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                Toast.makeText(v.getContext(), "" + currentFirebaseUser.getUid(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(v2.getContext(), "" + currentFirebaseUser.getUid(), Toast.LENGTH_SHORT).show();
             }
         });
 
 
 
+        mSignOut=(Button) view.findViewById(R.id.button7);
+
+        setupFirebaseListener();
+
+        mSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d(TAG, "onClick: attempting to sign out the user");
+                FirebaseAuth.getInstance().signOut();
+
+            }
+        });
+
 
         return view;
     }
 
+    private void setupFirebaseListener(){
+        Log.d(TAG,"setupFirebaseListener: setting up the auth state listener");
+        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null){
+                    Log.d(TAG, "onAuthStateChanged: signed_in: " +user.getUid());
+                }else {
+                    Log.d(TAG, "onAuthStateChanged: signed_out");
+                    Toast.makeText(getActivity(), "Signed Out", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(getActivity(), LoginActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                }
+            }
+        };
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        FirebaseAuth.getInstance().addAuthStateListener(mAuthStateListener);
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthStateListener != null){
+            FirebaseAuth.getInstance().removeAuthStateListener(mAuthStateListener);
+        }
+    }
 }
