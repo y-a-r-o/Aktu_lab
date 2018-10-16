@@ -25,16 +25,19 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        Button btnlab = (Button) view.findViewById(R.id.btn_labs3);
+
+        Button btnlab = (Button) view.findViewById(R.id.btn_labs);
+        Button btnseminar = (Button) view.findViewById(R.id.btn_seminars);
+        Button btnworkshop = (Button) view.findViewById(R.id.btn_workshop);
+
         btnlab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                labcat fragment3 =new labcat();
+                LabcatFragment fragment =new LabcatFragment();
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
-                fragmentTransaction.replace(R.id.mainframe, fragment3,"fragment3");
+                fragmentTransaction.replace(R.id.mainframe, fragment,"fragment");
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
-
             }
         });
 

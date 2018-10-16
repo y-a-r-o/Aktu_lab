@@ -30,12 +30,12 @@
 
 
         <Button
-            android:id="@+id/btn_labs3"
+            android:id="@+id/btn_labs"
             android:layout_width="fill_parent"
             android:layout_height="0dp"
-            android:layout_marginBottom="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
             android:background="@drawable/buttonshapehome"
             android:text="@string/labs"
             android:textColor="@android:color/white"
