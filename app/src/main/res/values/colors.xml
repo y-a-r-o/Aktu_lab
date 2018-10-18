@@ -21,4 +21,13 @@
     <color name="color">#9ca700</color>
     <color name="myacbutton">#caaa52</color>
     <color name="colorDark">#1b2631</color>
+
+    <color name="colorGreen">#B3FB8F</color>
+    <color name="colorGreenDark">#316C13</color>
+    <color name="colorGreenLight">#e5fed9</color>
+    <color name="Yellow">#d8d810</color>
+    <color name="Blue">#2a82f9</color>
+    <color name="Pink">#b0096c</color>
+    <color name="Gray">#eeeeee</color>
+    <color name="Light">#e8e0e5</color>
 </resources>
