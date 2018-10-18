@@ -1,6 +1,9 @@
 package com.example.lenovo_pc.aktu_lab;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -17,7 +20,9 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,6 +31,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.io.FileNotFoundException;
+
+import static android.app.Activity.RESULT_OK;
 import static com.firebase.ui.auth.AuthUI.TAG;
 import static com.firebase.ui.auth.AuthUI.getApplicationContext;
 
@@ -38,7 +46,8 @@ public class MyAccountFragment extends Fragment {
     private static final String TAG = "MyAccountFragment";
     private FirebaseAuth.AuthStateListener mAuthStateListener;
     private Button mSignOut;
-    Button b1;
+    TextView cntctus,prsnlinfo,mybkngs;
+    ImageView targetImage;
 
     public MyAccountFragment() {
         // Required empty public constructor
@@ -50,8 +59,17 @@ public class MyAccountFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_my_account, container, false);
-        b1=view.findViewById(R.id.button5);
-        b1.setOnClickListener(new View.OnClickListener() {
+        targetImage = view.findViewById(R.id.imageview1);
+        targetImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(i, 0);
+            }
+        });
+
+        mybkngs=view.findViewById(R.id.mybookings);
+        mybkngs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v2) {
                 FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -61,7 +79,7 @@ public class MyAccountFragment extends Fragment {
 
 
 
-        mSignOut=(Button) view.findViewById(R.id.button7);
+        mSignOut=(Button) view.findViewById(R.id.signout);
 
         setupFirebaseListener();
 
@@ -73,9 +91,9 @@ public class MyAccountFragment extends Fragment {
 
             }
         });
-
-
         return view;
+
+
     }
 
     private void setupFirebaseListener(){
@@ -110,4 +128,24 @@ public class MyAccountFragment extends Fragment {
             FirebaseAuth.getInstance().removeAuthStateListener(mAuthStateListener);
         }
     }
+//The function given below is important, do not remove, will debug it later.
+
+    /*@Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RESULT_OK) {
+            Uri targetUri = data.getData();
+            Bitmap bitmap;
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+                targetImage.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+
+                e.printStackTrace();
+            }
+
+        }
+
+    }*/
 }

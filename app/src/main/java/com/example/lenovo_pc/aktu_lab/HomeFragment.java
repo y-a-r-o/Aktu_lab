@@ -4,6 +4,7 @@ package com.example.lenovo_pc.aktu_lab;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,7 @@ import android.widget.Button;
  * A simple {@link Fragment} subclass.
  */
 public class HomeFragment extends Fragment {
-
+    CardView clab,csmnr,cevnt;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -26,11 +27,10 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
 
-        Button btnlab = (Button) view.findViewById(R.id.btn_labs);
-        Button btnseminar = (Button) view.findViewById(R.id.btn_seminars);
-        Button btnworkshop = (Button) view.findViewById(R.id.btn_workshop);
-
-        btnlab.setOnClickListener(new View.OnClickListener() {
+        clab=view.findViewById(R.id.cardview1);
+        csmnr=view.findViewById(R.id.cardview2);
+        cevnt=view.findViewById(R.id.cardview3);
+        clab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LabcatFragment fragment =new LabcatFragment();
