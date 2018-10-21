@@ -13,7 +13,6 @@ import android.widget.AbsListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -38,7 +37,7 @@ public class CardRecyclerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Intent intent = getIntent();
-        String string = intent.getStringExtra("key");
+        final String string = intent.getStringExtra("key");
         TextView test;
         setContentView(R.layout.activity_card_recycler);
         test = (TextView)findViewById(R.id.textView2);
@@ -68,7 +67,7 @@ public class CardRecyclerActivity extends AppCompatActivity {
 //                        Toast.makeText(mContext,"apple",Toast.LENGTH_SHORT).show();                                      //remove later
                     progressBar.setVisibility(View.GONE);
                     data.add(dataSnapshot1.getValue(CardClass.class));
-                    mAdapter = new CardRecyclerAdapter(data,mContext);
+                    mAdapter = new CardRecyclerAdapter(data,mContext,string);
                     recyclerView.setAdapter(mAdapter);
                 }
             }

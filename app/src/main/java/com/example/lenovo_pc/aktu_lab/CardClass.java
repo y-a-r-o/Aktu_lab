@@ -5,16 +5,26 @@ public class CardClass {
     String collage_name;
     String price_tag;
     String name;
+    int key;
 
     public CardClass() {
 
     }
 
-    public CardClass(String cardimage, String collage_name, String price_tag, String name) {
+    public CardClass(String cardimage, String collage_name, String price_tag, String name,int key) {
         this.cardimage = cardimage;
         this.collage_name = collage_name;
         this.price_tag = price_tag;
         this.name = name;
+        this.key = key;
+    }
+
+    public int getKey() {
+        return key;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
     }
 
     public String getCardimage() {
