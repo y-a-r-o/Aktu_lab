@@ -88,12 +88,9 @@ public class MyAccountFragment extends Fragment {
             public void onClick(View v) {
                 Log.d(TAG, "onClick: attempting to sign out the user");
                 FirebaseAuth.getInstance().signOut();
-
             }
         });
         return view;
-
-
     }
 
     private void setupFirebaseListener(){
