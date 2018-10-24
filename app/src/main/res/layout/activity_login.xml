@@ -11,7 +11,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
 
-        android:background="@color/background"
+        android:background="@color/colorSearch"
         android:gravity="top|center"
         android:orientation="vertical"
         android:padding="@dimen/activity_horizontal_margin">
@@ -35,7 +35,7 @@
                 android:layout_marginBottom="10dp"
                 android:hint="@string/hint_email"
                 android:inputType="textEmailAddress"
-                android:textColor="@android:color/white"
+                android:textColor="@color/colorBlack"
                 android:textColorHint="@android:color/white" />
         </android.support.design.widget.TextInputLayout>
 
@@ -50,7 +50,7 @@
                 android:layout_marginBottom="10dp"
                 android:hint="@string/hint_password"
                 android:inputType="textPassword"
-                android:textColor="@android:color/white"
+                android:textColor="@android:color/black"
                 android:textColorHint="@android:color/white" />
         </android.support.design.widget.TextInputLayout>
 
@@ -61,9 +61,9 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dip"
-            android:background="@color/colorPrimary"
+            android:background="@color/colorBlack"
             android:text="@string/btn_login"
-            android:textColor="@android:color/white" />
+            android:textColor="#ffffff" />
 
         <Button
             android:id="@+id/btn_reset_password"
@@ -73,7 +73,7 @@
             android:background="@null"
             android:text="@string/btn_forgot_password"
             android:textAllCaps="false"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorBlack" />
 
         <!-- Link to Login Screen -->
 
@@ -85,7 +85,7 @@
             android:background="@null"
             android:text="Not a member? Get registered In Aktu Lab now!"
             android:textAllCaps="false"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorBlack"
             android:textSize="15dp" />
     </LinearLayout>
 

@@ -30,4 +30,8 @@
     <color name="Pink">#b0096c</color>
     <color name="Gray">#eeeeee</color>
     <color name="Light">#e8e0e5</color>
+    <color name="BackgroundBlue">#41b7ff</color>
+    <color name="colorSearch">#e1dddd</color>
+    <color name="bottom">#ab1912</color>
+    <color name="colorBlack">#000000</color>
 </resources>

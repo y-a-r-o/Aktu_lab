@@ -5,17 +5,17 @@
     <item
         android:id="@+id/navigation_home"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="" />
+        android:title="Home" />
 
     <item
         android:id="@+id/navigation_search"
         android:icon="@drawable/ic_search_black_24dp"
-        android:title="" />
+        android:title="Search" />
 
     <item
         android:id="@+id/navigation_myaccount"
         android:icon="@drawable/ic_account_circle_black_24dp"
-        android:title="" />
+        android:title="My Account" />
 
 </menu>
 
