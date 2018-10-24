@@ -123,6 +123,7 @@ public class SearchFragment extends Fragment {
                             string=string.toLowerCase();
                         }
                         else{
+                            string =string.toLowerCase();
                             boolean space = true;
                             StringBuilder builder = new StringBuilder(string);
                             final int len = builder.length();
