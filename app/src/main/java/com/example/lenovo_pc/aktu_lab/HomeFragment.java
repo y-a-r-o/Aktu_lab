@@ -33,7 +33,8 @@ public class HomeFragment extends Fragment {
         clab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                LabcatFragment fragment =new LabcatFragment();
+//                LabcatFragment fragment =new LabcatFragment();
+                LabcatFragmentNew fragment =new LabcatFragmentNew();
                 FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
                 fragmentTransaction.replace(R.id.mainframe, fragment,"fragment");
                 fragmentTransaction.addToBackStack(null);
