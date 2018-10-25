@@ -48,7 +48,7 @@ public class LabDetailsActivity extends AppCompatActivity {
     private ImageView[] dots;
     //upto here
     TextView name;
-    TextView collagename;
+    TextView collegename;
     TextView description;
     TextView address;
 
@@ -89,7 +89,7 @@ public class LabDetailsActivity extends AppCompatActivity {
         databaseReference.keepSynced(true);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
         name = (TextView) findViewById(R.id.name1);
-        collagename = (TextView) findViewById(R.id.collagename1);
+        collegename = (TextView) findViewById(R.id.collegename1);
         sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);    //for dots
         description = (TextView) findViewById(R.id.description);
         address = (TextView) findViewById(R.id.address);
@@ -120,7 +120,7 @@ public class LabDetailsActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 details = dataSnapshot.getValue(LabDetailsClass.class);
                 name.setText(details.getName());
-                collagename.setText(details.getCollage_name());
+                collegename.setText(details.getCollege_name());
                 description.setText(details.getDescription());
                 address.setText(details.getAddress());
                 String[] mImages = {details.getImage1(), details.getImage2(), details.getImage3(), details.getCardimage()};
@@ -168,7 +168,7 @@ public class LabDetailsActivity extends AppCompatActivity {
         ValueEventListener postListener2 = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                collegeContactsClass = dataSnapshot.child("labs").child(category).child("" + key).child("collage_contacts").getValue(CollegeContactsClass.class);
+                collegeContactsClass = dataSnapshot.child("labs").child(category).child("" + key).child("college_contacts").getValue(CollegeContactsClass.class);
 //                String tempstring = "Email - " + collegeContactsClass.getEmail();
                 Email.setText(collegeContactsClass.getEmail());
 //                tempstring = "Website - " + collegeContactsClass.getWebsite();
@@ -209,7 +209,6 @@ public class LabDetailsActivity extends AppCompatActivity {
                 editor.putString("current_date", today);
                 editor.apply();
             }
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
             }
@@ -223,7 +222,8 @@ public class LabDetailsActivity extends AppCompatActivity {
             String name = prefs.getString("current_date", "No name defined");//"No name defined" is the default value.
         }
         Toast.makeText(getApplicationContext(), restoredText, Toast.LENGTH_LONG).show();
-         //Convert the string-date into Date-date
+        //to increment current date +2
+        //Convert the string-date into Date-date
         try {
             Date date = new SimpleDateFormat("dd-MM-yyyy").parse(restoredText);
             Log.w("Radiobutton hidden", "Date date=" + date);
@@ -282,7 +282,7 @@ public class LabDetailsActivity extends AppCompatActivity {
                             String temp = "Date=" + button_date + "\n" + "Time=" + button_time + "\n" + "Price=" + button_price;
                             radioButton[z].setText(temp);
                             radioButton[z].setVisibility(View.VISIBLE);
-                            Log.w("Radiobutton hidden", "radioButton[z].setVisibility(View.VISIBLE);");
+                            Log.w("Radiobutton hidden"+radioButton[z], "radioButton[z].setVisibility(View.VISIBLE);");
 
 
 //                        String temp = "Date="+button_date+"\n"+"Time="+button_time+"\n"+"Price="+button_price;
@@ -359,6 +359,9 @@ public class LabDetailsActivity extends AppCompatActivity {
             if (test.equals(radioButton[a].getText())) {
                 radioButton[a].setVisibility(View.GONE);
                 Log.w("Radiobutton hidden", "radioButton[z].setVisibility(View.GONE);");
+            }
+            else{
+                Log.w("Radiobutton hidden", "else part radioButton[z].setVisibility(View.GONE);");
             }
         }
     }

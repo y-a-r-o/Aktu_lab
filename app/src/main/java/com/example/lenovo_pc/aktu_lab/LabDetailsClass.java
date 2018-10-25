@@ -3,7 +3,7 @@ package com.example.lenovo_pc.aktu_lab;
 public class LabDetailsClass {
     String address;
     String cardimage;
-    String collage_name;
+    String college_name;
     String description;
     String image1;
     String image2;
@@ -12,11 +12,15 @@ public class LabDetailsClass {
     String name;
     String price_tag;
     int seats;
+    String college_key;
 
-    public LabDetailsClass(String address, String cardImage, String collage_name, String description, String image1, String image2, String image3, int key, String name, String price_tag, int seats) {
+    public LabDetailsClass() {
+    }
+
+    public LabDetailsClass(String address, String cardimage, String college_name, String description, String image1, String image2, String image3, int key, String name, String price_tag, int seats, String college_key) {
         this.address = address;
-        this.cardimage = cardImage;
-        this.collage_name = collage_name;
+        this.cardimage = cardimage;
+        this.college_name = college_name;
         this.description = description;
         this.image1 = image1;
         this.image2 = image2;
@@ -25,17 +29,7 @@ public class LabDetailsClass {
         this.name = name;
         this.price_tag = price_tag;
         this.seats = seats;
-    }
-
-    public String getCardimage() {
-        return cardimage;
-    }
-
-    public void setCardimage(String cardimage) {
-        this.cardimage = cardimage;
-    }
-
-    public LabDetailsClass() {
+        this.college_key = college_key;
     }
 
     public String getAddress() {
@@ -46,13 +40,20 @@ public class LabDetailsClass {
         this.address = address;
     }
 
-
-    public String getCollage_name() {
-        return collage_name;
+    public String getCardimage() {
+        return cardimage;
     }
 
-    public void setCollage_name(String collage_name) {
-        this.collage_name = collage_name;
+    public void setCardimage(String cardimage) {
+        this.cardimage = cardimage;
+    }
+
+    public String getCollege_name() {
+        return college_name;
+    }
+
+    public void setCollege_name(String college_name) {
+        this.college_name = college_name;
     }
 
     public String getDescription() {
@@ -118,4 +119,13 @@ public class LabDetailsClass {
     public void setSeats(int seats) {
         this.seats = seats;
     }
+
+    public String getCollege_key() {
+        return college_key;
+    }
+
+    public void setCollege_key(String college_key) {
+        this.college_key = college_key;
+    }
 }
+
