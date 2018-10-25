@@ -31,10 +31,16 @@
         <activity android:name=".LoginActivity" />
         <activity android:name=".CardRecyclerActivity" />
         <activity android:name=".ResetPasswordActivity" />
-        <activity android:name=".LabDetailsActivity"
-                  android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity
+            android:name=".LabDetailsActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".Payments" />
 
-        </activity>
+        <meta-data
+            android:name="com.razorpay.ApiKey"
+            android:value="rzp_test_0Q9QUVz0kaWmK3" />
+
+        <activity android:name=".PersonalDetailsActivity"></activity>
     </application>
 
 </manifest>
