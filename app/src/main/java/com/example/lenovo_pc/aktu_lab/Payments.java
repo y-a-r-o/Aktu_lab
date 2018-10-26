@@ -17,6 +17,8 @@ import com.razorpay.PaymentResultListener;
 
 import org.json.JSONObject;
 
+import java.util.Objects;
+
 public class Payments extends AppCompatActivity implements PaymentResultListener {
 
     private Button buttonConfirmOrder;
@@ -28,6 +30,7 @@ public class Payments extends AppCompatActivity implements PaymentResultListener
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payments);
+        Objects.requireNonNull(getSupportActionBar()).hide();
         Log.w("payment_error","beforesharedpreference");             //LOG
         SharedPreferences spf =getSharedPreferences("TimeSlot",MODE_PRIVATE);
         payment_final= spf.getInt("Price",0);
