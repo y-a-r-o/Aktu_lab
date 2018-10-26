@@ -3,6 +3,7 @@ package com.example.lenovo_pc.aktu_lab;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,6 +13,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
@@ -24,6 +32,13 @@ public class Payments extends AppCompatActivity implements PaymentResultListener
     private Button buttonConfirmOrder;
 //    String payment = getString(R.string.pay);
 //    String string;
+    FirebaseAuth firebaseAuth;
+    FirebaseDatabase firebaseDatabase;
+    DatabaseReference databaseReference;
+    LabDetailsClass labDetailsClass;
+    MyBookingClass myBookingClass;
+    String category;
+    int key;
 
     int payment_final;
     @Override
@@ -35,6 +50,32 @@ public class Payments extends AppCompatActivity implements PaymentResultListener
         SharedPreferences spf =getSharedPreferences("TimeSlot",MODE_PRIVATE);
         payment_final= spf.getInt("Price",0);
         Log.w("payment_error","aftersharedpreference");             //LOG
+
+        spf = getSharedPreferences("LabDetails",MODE_PRIVATE);
+        category = spf.getString("category",null);
+        key = spf.getInt("key",0);
+
+
+        firebaseAuth = FirebaseAuth.getInstance();
+        firebaseDatabase = FirebaseDatabase.getInstance();
+        databaseReference = firebaseDatabase.getReference();
+
+//        Query query = databaseReference.child("labs").child(categotry).child(""+key);
+//        query.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                labDetailsClass = dataSnapshot.getValue(LabDetailsClass.class);
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+
+
+
         findViews();
         listeners();
     }
@@ -97,6 +138,12 @@ public class Payments extends AppCompatActivity implements PaymentResultListener
     @Override
     public void onPaymentSuccess(String razorpayPaymentID) {
         Toast.makeText(this, "Payment successfully done! " + razorpayPaymentID, Toast.LENGTH_SHORT).show();
+
+        String temp = firebaseAuth.getCurrentUser().getUid();
+        myBookingClass = new MyBookingClass("labs",category,key);
+        String push_key = databaseReference.push().getKey();
+        databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).setValue(myBookingClass);
+
         Intent intent = new Intent(Payments.this,MainActivity.class);
         startActivity(intent);
     }
