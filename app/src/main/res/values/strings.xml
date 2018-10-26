@@ -33,7 +33,19 @@
     <string name="title_myaccount">My Account</string>
     <string name="pay">100</string>
     <string name="todo">TODO</string>
+    <string name="boldtext">\u2022 Please ensure all the details you entered is correct.
+        \n
+        \n\u2022 Candidates with incorrect details shall not be allowed to enter.
+        \n
+        \n\u2022 Carry your <font color="red"><b>college identity card</b></font> with you.
+        \n
+        \n\u2022 Also carry a <font color="red"><b>photo id</b></font> with yourself.
+        \n
+        \n\u2022 Anyone without the college id card or photo id shall not be permitted to enter the premises.
+        \n
+        \n\u2022 <font color="red"><b>Booking is  nonrefundable!!!</b></font> </string>
     <string-array name="colleges">
+        <item>Select Course</item>
         <item>B.Tech</item>
         <item>B.Pharma</item>
         <item>BCA</item>

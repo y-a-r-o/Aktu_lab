@@ -2,6 +2,7 @@ package com.example.lenovo_pc.aktu_lab;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -64,6 +65,7 @@ public class LabDetailsActivity extends AppCompatActivity {
     TextView Website;
     TextView Phone;
 
+
     RadioGroup radioGroup;
     RadioButton radioButton[] = new RadioButton[7];
     final String rbtime[] = {"time1", "time2", "time3", "time4", "time5", "time6", "time7",};
@@ -82,6 +84,11 @@ public class LabDetailsActivity extends AppCompatActivity {
         final int key = getIntent().getIntExtra("key", 0);
         final String category = getIntent().getStringExtra("category");
 //        Toast.makeText(getApplicationContext(), "category=" + category + " key=" + key, Toast.LENGTH_SHORT).show();
+
+        SharedPreferences.Editor sharedEditor = getSharedPreferences("LabDetails",MODE_PRIVATE).edit();
+        sharedEditor.putString("category",category);
+        sharedEditor.putInt("key",key);
+        sharedEditor.apply();
 
         mContext = getApplicationContext();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -119,6 +126,7 @@ public class LabDetailsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 details = dataSnapshot.getValue(LabDetailsClass.class);
+
                 name.setText(details.getName());
                 collegename.setText(details.getCollege_name());
                 description.setText(details.getDescription());
@@ -348,6 +356,16 @@ public class LabDetailsActivity extends AppCompatActivity {
                          String button_time = prefs.getString(rbtime[i], null);
                          int button_price = prefs.getInt(rbprice[i], 0);
                          Toast.makeText(getApplicationContext(),rbdate[i]+"->"+button_date+"\n"+rbtime[i]+"->"+button_time+"\n"+rbprice[i]+"->"+button_price , Toast.LENGTH_SHORT).show();
+
+                         SharedPreferences.Editor editor1 = getSharedPreferences("TimeSlot",MODE_PRIVATE).edit();
+                         editor1.putString("Date",button_date);
+                         editor1.putString("Time",button_time);
+                         editor1.putInt("Price",button_price);
+                         editor1.apply();
+
+                         Intent intent = new Intent(LabDetailsActivity.this,PersonalDetailsActivity.class);
+                         startActivity(intent);
+
                      }
                  }
                 }
