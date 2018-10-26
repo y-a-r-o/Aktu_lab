@@ -186,41 +186,43 @@ public class LabDetailsActivity extends AppCompatActivity {
 
 
         //date and time
-        databaseReference = firebaseDatabase.getReference();
-        String key_time = databaseReference.push().getKey();
-        Map<String, Object> value = new HashMap<>();
-        value.put("purpose", "To get time.");
-        value.put("timestamp", ServerValue.TIMESTAMP);
-        databaseReference.child(key_time).setValue(value);
+//        databaseReference = firebaseDatabase.getReference();
+//        String key_time = databaseReference.push().getKey();
+//        Map<String, Object> value = new HashMap<>();
+//        value.put("purpose", "To get time.");
+//        value.put("timestamp", ServerValue.TIMESTAMP);
+//        databaseReference.child(key_time).setValue(value);
+//
+//
+//        Query query_date = databaseReference.child(key_time);
+//        query_date.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                timeClass = dataSnapshot.getValue(TimeClass.class);
+//                node = timeClass.getTimestamp();
+//                Log.w("date", ""+node);
+//                Date date = new Date(node);                                       //for testing
+//                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");//for testing
+//                String today = sdf.format(date);//for testing
+//                Log.w("date", today);
+//                SharedPreferences.Editor editor = getSharedPreferences("Date", MODE_PRIVATE).edit();
+//                editor.putString("current_date", today);
+//                editor.apply();
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//            }
+//        });
+//        databaseReference = databaseReference.child(key_time);
+//        databaseReference.setValue(null);
 
+        SharedPreferences prefs = getSharedPreferences("Date",MODE_PRIVATE);
+        String restoredText = prefs.getString("current_date",null);
 
-        Query query_date = databaseReference.child(key_time);
-        query_date.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                timeClass = dataSnapshot.getValue(TimeClass.class);
-                node = timeClass.getTimestamp();
-                Log.w("date", ""+node);
-                Date date = new Date(node);                                       //for testing
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");//for testing
-                String today = sdf.format(date);//for testing
-                Log.w("date", today);
-                SharedPreferences.Editor editor = getSharedPreferences("DATE", MODE_PRIVATE).edit();
-                editor.putString("current_date", today);
-                editor.apply();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-        databaseReference = databaseReference.child(key_time);
-        databaseReference.setValue(null);
+        SharedPreferences.Editor editor = getSharedPreferences("Date_temp", MODE_PRIVATE).edit();
+        editor.putString("current_date", restoredText);
+        editor.apply();
 
-        SharedPreferences prefs = getSharedPreferences("DATE", MODE_PRIVATE);
-        String restoredText = prefs.getString("current_date", null);
-        if (restoredText != null) {
-            String name = prefs.getString("current_date", "No name defined");//"No name defined" is the default value.
-        }
         Toast.makeText(getApplicationContext(), restoredText, Toast.LENGTH_LONG).show();
         //to increment current date +2
         //Convert the string-date into Date-date
@@ -233,7 +235,7 @@ public class LabDetailsActivity extends AppCompatActivity {
             //convert Date-date back to String-date
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");//for testing
             restoredText = sdf.format(dayAfter);//for testing
-            SharedPreferences.Editor editor = getSharedPreferences("DATE", MODE_PRIVATE).edit();
+             editor = getSharedPreferences("Date_temp", MODE_PRIVATE).edit();
             editor.putString("current_date", restoredText);
             editor.apply();
         }catch (java.text.ParseException e) {
@@ -246,11 +248,9 @@ public class LabDetailsActivity extends AppCompatActivity {
         //function to set the radio buttons;
         for (int k = 0; k < 7; k++) {
             //to get the sharedpreference current_date
-            prefs = getSharedPreferences("DATE", MODE_PRIVATE);
+            prefs = getSharedPreferences("Date_temp", MODE_PRIVATE);
             restoredText = prefs.getString("current_date", null);
-            if (restoredText != null) {
-                String name = prefs.getString("current_date", "No name defined");//"No name defined" is the default value.
-            }
+            
             Log.w("Radiobutton hidden", "restoredText=" + restoredText);
             //serach firebase for today's date
             databaseReference = firebaseDatabase.getReference();
@@ -267,7 +267,7 @@ public class LabDetailsActivity extends AppCompatActivity {
                             // Log.w("apple",timeslotClass.getDate());
                             Log.d("getDate", "onDataChange: " + timeslotClass.getDate());
 
-                            SharedPreferences.Editor editor = getSharedPreferences("DATE", MODE_PRIVATE).edit();
+                            SharedPreferences.Editor editor = getSharedPreferences("Date_temp", MODE_PRIVATE).edit();
 //                          editor.putString(rbdate[z],timeslotClass.getDate());
                             editor.putString(rbdate[z],timeslotClass.getDate() );
                             editor.putString(rbtime[z], timeslotClass.getTime());
@@ -275,7 +275,7 @@ public class LabDetailsActivity extends AppCompatActivity {
                             editor.apply();
                             Log.w("apple", rbdate[z]);
 
-                            SharedPreferences prefs = getSharedPreferences("DATE", MODE_PRIVATE);
+                            SharedPreferences prefs = getSharedPreferences("Date_temp", MODE_PRIVATE);
                             String button_date = prefs.getString(rbdate[z], null);
                             String button_time = prefs.getString(rbtime[z], null);
                             int button_price = prefs.getInt(rbprice[z], 0);
@@ -308,7 +308,7 @@ public class LabDetailsActivity extends AppCompatActivity {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");//for testing
                 restoredText = sdf.format(dayAfter);//for testing
                 Log.w("Radiobutton hidden", "date" + dayAfter);
-                SharedPreferences.Editor editor = getSharedPreferences("DATE", MODE_PRIVATE).edit();
+                editor = getSharedPreferences("Date_temp", MODE_PRIVATE).edit();
                 editor.putString("current_date", restoredText);
                 editor.apply();
             } catch (java.text.ParseException e) {
@@ -338,7 +338,7 @@ public class LabDetailsActivity extends AppCompatActivity {
                 if (radioGroup.getCheckedRadioButtonId() == -1) {
                     Toast.makeText(getApplicationContext(), "Please select one of the available dates...", Toast.LENGTH_LONG).show();
                 } else {
-                    SharedPreferences prefs = getSharedPreferences("DATE", MODE_PRIVATE);
+                    SharedPreferences prefs = getSharedPreferences("Date_temp", MODE_PRIVATE);
 //                    String button_date = prefs.getString(rbdate[z], null);
 //                    String button_time = prefs.getString(rbtime[z], null);
 //                    int button_price = prefs.getInt(rbprice[z], 0);
