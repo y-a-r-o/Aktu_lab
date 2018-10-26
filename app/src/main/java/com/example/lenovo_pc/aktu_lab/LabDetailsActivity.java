@@ -2,6 +2,7 @@ package com.example.lenovo_pc.aktu_lab;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -64,6 +65,7 @@ public class LabDetailsActivity extends AppCompatActivity {
     TextView Website;
     TextView Phone;
 
+
     RadioGroup radioGroup;
     RadioButton radioButton[] = new RadioButton[7];
     final String rbtime[] = {"time1", "time2", "time3", "time4", "time5", "time6", "time7",};
@@ -82,6 +84,11 @@ public class LabDetailsActivity extends AppCompatActivity {
         final int key = getIntent().getIntExtra("key", 0);
         final String category = getIntent().getStringExtra("category");
 //        Toast.makeText(getApplicationContext(), "category=" + category + " key=" + key, Toast.LENGTH_SHORT).show();
+
+        SharedPreferences.Editor sharedEditor = getSharedPreferences("LabDetails",MODE_PRIVATE).edit();
+        sharedEditor.putString("category",category);
+        sharedEditor.putInt("key",key);
+        sharedEditor.apply();
 
         mContext = getApplicationContext();
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -119,6 +126,7 @@ public class LabDetailsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 details = dataSnapshot.getValue(LabDetailsClass.class);
+
                 name.setText(details.getName());
                 collegename.setText(details.getCollege_name());
                 description.setText(details.getDescription());
@@ -184,51 +192,50 @@ public class LabDetailsActivity extends AppCompatActivity {
         };
         databaseReference.addValueEventListener(postListener2);
 
+
         //date and time
-        databaseReference = firebaseDatabase.getReference();
-        String key_time = databaseReference.push().getKey();
-        Map<String, Object> value = new HashMap<>();
-        value.put("purpose", "To get time.");
-        value.put("timestamp", ServerValue.TIMESTAMP);
-        databaseReference.child(key_time).setValue(value);
-        Log.w("date_key_time", ""+key_time);
-        Query query_date = databaseReference.child(key_time);
-        query_date.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                timeClass = dataSnapshot.getValue(TimeClass.class);
-                node = timeClass.getTimestamp();
-                Log.w("date_node", ""+node);
-                Date date = new Date(node);                                       //for testing
-                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");//for testing
-                String today = sdf.format(date);//for testing
-                Log.w("date_today", today);
-                SharedPreferences.Editor editor = getSharedPreferences("DATE", MODE_PRIVATE).edit();
-                editor.putString("current_date", today);
-                editor.apply();
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
-        });
-        databaseReference = databaseReference.child(key_time);
-        databaseReference.setValue(null);
+//        databaseReference = firebaseDatabase.getReference();
+//        String key_time = databaseReference.push().getKey();
+//        Map<String, Object> value = new HashMap<>();
+//        value.put("purpose", "To get time.");
+//        value.put("timestamp", ServerValue.TIMESTAMP);
+//        databaseReference.child(key_time).setValue(value);
+//
+//
+//        Query query_date = databaseReference.child(key_time);
+//        query_date.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                timeClass = dataSnapshot.getValue(TimeClass.class);
+//                node = timeClass.getTimestamp();
+//                Log.w("date", ""+node);
+//                Date date = new Date(node);                                       //for testing
+//                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");//for testing
+//                String today = sdf.format(date);//for testing
+//                Log.w("date", today);
+//                SharedPreferences.Editor editor = getSharedPreferences("Date", MODE_PRIVATE).edit();
+//                editor.putString("current_date", today);
+//                editor.apply();
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//            }
+//        });
+//        databaseReference = databaseReference.child(key_time);
+//        databaseReference.setValue(null);
 
-        SharedPreferences prefs = getSharedPreferences("DATE", MODE_PRIVATE);
-        String restoredText = prefs.getString("current_date", null);
-        Log.w("date_restoredText_Bif", ""+restoredText);
+        SharedPreferences prefs = getSharedPreferences("Date",MODE_PRIVATE);
+        String restoredText = prefs.getString("current_date",null);
 
-        if (restoredText != null) {
-            String name = prefs.getString("current_date", "No name defined");//"No name defined" is the default value.
-        }
+        SharedPreferences.Editor editor = getSharedPreferences("Date_temp", MODE_PRIVATE).edit();
+        editor.putString("current_date", restoredText);
+        editor.apply();
+
         Toast.makeText(getApplicationContext(), restoredText, Toast.LENGTH_LONG).show();
-        Log.w("date_restoredText_Aif", ""+restoredText);
-
         //to increment current date +2
         //Convert the string-date into Date-date
         try {
             Date date = new SimpleDateFormat("dd-MM-yyyy").parse(restoredText);
-            Log.w("date_restoredText_inTry", ""+restoredText);
             Log.w("Radiobutton hidden", "Date date=" + date);
             //increment the date by one
             Date dayAfter = new Date(date.getTime() + TimeUnit.DAYS.toMillis(2));
@@ -236,10 +243,9 @@ public class LabDetailsActivity extends AppCompatActivity {
             //convert Date-date back to String-date
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");//for testing
             restoredText = sdf.format(dayAfter);//for testing
-            SharedPreferences.Editor editor = getSharedPreferences("DATE", MODE_PRIVATE).edit();
+             editor = getSharedPreferences("Date_temp", MODE_PRIVATE).edit();
             editor.putString("current_date", restoredText);
             editor.apply();
-            Log.w("date_restoredText_eTry", ""+restoredText);
         }catch (java.text.ParseException e) {
             Log.w("Radiobutton hidden", "catch...");
             e.printStackTrace();
@@ -250,41 +256,41 @@ public class LabDetailsActivity extends AppCompatActivity {
         //function to set the radio buttons;
         for (int k = 0; k < 7; k++) {
             //to get the sharedpreference current_date
-            prefs = getSharedPreferences("DATE", MODE_PRIVATE);
+            prefs = getSharedPreferences("Date_temp", MODE_PRIVATE);
             restoredText = prefs.getString("current_date", null);
-            if (restoredText != null) {
-                String name = prefs.getString("current_date", "No name defined");//"No name defined" is the default value.
-            }
-            Log.w("date_restoredText_Try2", "" + restoredText);
+            
+            Log.w("Radiobutton hidden", "restoredText=" + restoredText);
             //serach firebase for today's date
             databaseReference = firebaseDatabase.getReference();
             final int z = k;
+           Query query_date_details = databaseReference.child("labs").child(category).child(""+key).child("time_slot").orderByChild("date").equalTo(restoredText);           // have not used orderby
 
-            Query query_date_details = databaseReference.child("labs").child(category).child(""+key).child("time_slot").orderByChild("date").equalTo(restoredText);           // have not used orderby
+
+            Log.w("Radiobutton hidden", "z=" + z);
             query_date_details.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot dataSnapshot1) {
                     for(DataSnapshot dataSnapshot2:dataSnapshot1.getChildren()) {
-                        timeslotClass = dataSnapshot2.getValue(TimeslotClass.class);                             //null values are being imported
-                        // Log.w("apple",timeslotClass.getDate());
-                        Log.d("getDate", "" + timeslotClass.getDate());
+                            timeslotClass = dataSnapshot2.getValue(TimeslotClass.class);                             //null values are being imported
+                            // Log.w("apple",timeslotClass.getDate());
+                            Log.d("getDate", "onDataChange: " + timeslotClass.getDate());
 
-                        SharedPreferences.Editor editor = getSharedPreferences("DATE", MODE_PRIVATE).edit();
+                            SharedPreferences.Editor editor = getSharedPreferences("Date_temp", MODE_PRIVATE).edit();
 //                          editor.putString(rbdate[z],timeslotClass.getDate());
-                        editor.putString(rbdate[z],timeslotClass.getDate() );
-                        editor.putString(rbtime[z], timeslotClass.getTime());
-                        editor.putInt(rbprice[z], timeslotClass.getPrice());
-                        editor.apply();
-                        Log.w("apple", rbdate[z]);
+                            editor.putString(rbdate[z],timeslotClass.getDate() );
+                            editor.putString(rbtime[z], timeslotClass.getTime());
+                            editor.putInt(rbprice[z], timeslotClass.getPrice());
+                            editor.apply();
+                            Log.w("apple", rbdate[z]);
 
-                        SharedPreferences prefs = getSharedPreferences("DATE", MODE_PRIVATE);
-                        String button_date = prefs.getString(rbdate[z], null);
-                        String button_time = prefs.getString(rbtime[z], null);
-                        int button_price = prefs.getInt(rbprice[z], 0);
-                        String temp = "Date=" + button_date + "\n" + "Time=" + button_time + "\n" + "Price=" + button_price;
-                        radioButton[z].setText(temp);
-                        radioButton[z].setVisibility(View.VISIBLE);
-                        Log.w("Radiobutton hidden"+radioButton[z], "radioButton[z].setVisibility(View.VISIBLE);");
+                            SharedPreferences prefs = getSharedPreferences("Date_temp", MODE_PRIVATE);
+                            String button_date = prefs.getString(rbdate[z], null);
+                            String button_time = prefs.getString(rbtime[z], null);
+                            int button_price = prefs.getInt(rbprice[z], 0);
+                            String temp = "Date=" + button_date + "\n" + "Time=" + button_time + "\n" + "Price=" + button_price;
+                            radioButton[z].setText(temp);
+                            radioButton[z].setVisibility(View.VISIBLE);
+                            Log.w("Radiobutton hidden"+radioButton[z], "radioButton[z].setVisibility(View.VISIBLE);");
 
 
 //                        String temp = "Date="+button_date+"\n"+"Time="+button_time+"\n"+"Price="+button_price;
@@ -310,7 +316,7 @@ public class LabDetailsActivity extends AppCompatActivity {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");//for testing
                 restoredText = sdf.format(dayAfter);//for testing
                 Log.w("Radiobutton hidden", "date" + dayAfter);
-                SharedPreferences.Editor editor = getSharedPreferences("DATE", MODE_PRIVATE).edit();
+                editor = getSharedPreferences("Date_temp", MODE_PRIVATE).edit();
                 editor.putString("current_date", restoredText);
                 editor.apply();
             } catch (java.text.ParseException e) {
@@ -340,18 +346,28 @@ public class LabDetailsActivity extends AppCompatActivity {
                 if (radioGroup.getCheckedRadioButtonId() == -1) {
                     Toast.makeText(getApplicationContext(), "Please select one of the available dates...", Toast.LENGTH_LONG).show();
                 } else {
-                    SharedPreferences prefs = getSharedPreferences("DATE", MODE_PRIVATE);
+                    SharedPreferences prefs = getSharedPreferences("Date_temp", MODE_PRIVATE);
 //                    String button_date = prefs.getString(rbdate[z], null);
 //                    String button_time = prefs.getString(rbtime[z], null);
 //                    int button_price = prefs.getInt(rbprice[z], 0);
-                    for(int i=0;i<7;i++){
-                        if (radioButton[i].isChecked()){
-                            String button_date = prefs.getString(rbdate[i], null);
-                            String button_time = prefs.getString(rbtime[i], null);
-                            int button_price = prefs.getInt(rbprice[i], 0);
-                            Toast.makeText(getApplicationContext(),rbdate[i]+"->"+button_date+"\n"+rbtime[i]+"->"+button_time+"\n"+rbprice[i]+"->"+button_price , Toast.LENGTH_SHORT).show();
-                        }
-                    }
+                 for(int i=0;i<7;i++){
+                     if (radioButton[i].isChecked()){
+                         String button_date = prefs.getString(rbdate[i], null);
+                         String button_time = prefs.getString(rbtime[i], null);
+                         int button_price = prefs.getInt(rbprice[i], 0);
+                         Toast.makeText(getApplicationContext(),rbdate[i]+"->"+button_date+"\n"+rbtime[i]+"->"+button_time+"\n"+rbprice[i]+"->"+button_price , Toast.LENGTH_SHORT).show();
+
+                         SharedPreferences.Editor editor1 = getSharedPreferences("TimeSlot",MODE_PRIVATE).edit();
+                         editor1.putString("Date",button_date);
+                         editor1.putString("Time",button_time);
+                         editor1.putInt("Price",button_price);
+                         editor1.apply();
+
+                         Intent intent = new Intent(LabDetailsActivity.this,PersonalDetailsActivity.class);
+                         startActivity(intent);
+
+                     }
+                 }
                 }
             }
         });
@@ -365,7 +381,7 @@ public class LabDetailsActivity extends AppCompatActivity {
             else{
                 Log.w("Radiobutton hidden", "else part radioButton[z].setVisibility(View.GONE);");
             }
-        }//end of loop
+        }
     }
 
 }

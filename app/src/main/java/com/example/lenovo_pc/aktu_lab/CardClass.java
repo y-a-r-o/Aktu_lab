@@ -2,28 +2,19 @@ package com.example.lenovo_pc.aktu_lab;
 
 public class CardClass {
     String cardimage;
-    String collage_name;
+    String college_name;
     String price_tag;
     String name;
     int key;
 
     public CardClass() {
-
     }
 
-    public CardClass(String cardimage, String collage_name, String price_tag, String name,int key) {
+    public CardClass(String cardimage, String college_name, String price_tag, String name, int key) {
         this.cardimage = cardimage;
-        this.collage_name = collage_name;
+        this.college_name = college_name;
         this.price_tag = price_tag;
         this.name = name;
-        this.key = key;
-    }
-
-    public int getKey() {
-        return key;
-    }
-
-    public void setKey(int key) {
         this.key = key;
     }
 
@@ -35,12 +26,12 @@ public class CardClass {
         this.cardimage = cardimage;
     }
 
-    public String getCollage_name() {
-        return collage_name;
+    public String getCollege_name() {
+        return college_name;
     }
 
-    public void setCollage_name(String collage_name) {
-        this.collage_name = collage_name;
+    public void setCollege_name(String college_name) {
+        this.college_name = college_name;
     }
 
     public String getPrice_tag() {
@@ -57,5 +48,13 @@ public class CardClass {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getKey() {
+        return key;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
     }
 }

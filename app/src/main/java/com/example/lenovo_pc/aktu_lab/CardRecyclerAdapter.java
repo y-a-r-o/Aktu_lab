@@ -45,7 +45,7 @@ public class CardRecyclerAdapter extends RecyclerView.Adapter<CardRecyclerAdapte
     public void onBindViewHolder(final ViewHolder holder,final int position) {
 
         holder.name.setText(arrayList.get(position).getName());
-        holder.college_name.setText((arrayList.get(position).getCollage_name()));
+        holder.college_name.setText((arrayList.get(position).getCollege_name()));
         holder.price_tag.setText(arrayList.get(position).getPrice_tag());
         Picasso.with(mContext)
                 .load(arrayList.get(position).getCardimage())
