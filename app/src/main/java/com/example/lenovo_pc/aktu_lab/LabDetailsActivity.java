@@ -26,13 +26,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
-import com.google.firebase.database.ServerValue;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class LabDetailsActivity extends AppCompatActivity {
@@ -86,6 +83,7 @@ public class LabDetailsActivity extends AppCompatActivity {
 //        Toast.makeText(getApplicationContext(), "category=" + category + " key=" + key, Toast.LENGTH_SHORT).show();
 
         SharedPreferences.Editor sharedEditor = getSharedPreferences("LabDetails",MODE_PRIVATE).edit();
+        sharedEditor.putString("main","labs");
         sharedEditor.putString("category",category);
         sharedEditor.putInt("key",key);
         sharedEditor.apply();
@@ -95,7 +93,7 @@ public class LabDetailsActivity extends AppCompatActivity {
         databaseReference = firebaseDatabase.getReference();
         databaseReference.keepSynced(true);
         viewPager = (ViewPager) findViewById(R.id.viewpager);
-        name = (TextView) findViewById(R.id.name1);
+        name = (TextView) findViewById(R.id.name2);
         collegename = (TextView) findViewById(R.id.collegename1);
         sliderDotspanel = (LinearLayout) findViewById(R.id.SliderDots);    //for dots
         description = (TextView) findViewById(R.id.description);
@@ -110,8 +108,8 @@ public class LabDetailsActivity extends AppCompatActivity {
         radioButton[5] = (RadioButton) findViewById(R.id.radioButton6);
         radioButton[6] = (RadioButton) findViewById(R.id.radioButton7);
 
-        Email = (TextView) findViewById(R.id.email);
-        Website = (TextView) findViewById(R.id.website);
+        Email = (TextView) findViewById(R.id.email1);
+        Website = (TextView) findViewById(R.id.website2);
         Phone = (TextView) findViewById(R.id.phone);
 
         scrollView = (ScrollView) findViewById(R.id.scrollview);
@@ -126,7 +124,6 @@ public class LabDetailsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 details = dataSnapshot.getValue(LabDetailsClass.class);
-
                 name.setText(details.getName());
                 collegename.setText(details.getCollege_name());
                 description.setText(details.getDescription());
@@ -177,12 +174,15 @@ public class LabDetailsActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 collegeContactsClass = dataSnapshot.child("labs").child(category).child("" + key).child("college_contacts").getValue(CollegeContactsClass.class);
-//                String tempstring = "Email - " + collegeContactsClass.getEmail();
                 Email.setText(collegeContactsClass.getEmail());
-//                tempstring = "Website - " + collegeContactsClass.getWebsite();
                 Website.setText(collegeContactsClass.getWebsite());
-//                tempstring = "Phone - " + collegeContactsClass.getPhone_no();
                 Phone.setText(collegeContactsClass.getPhone_no());
+                SharedPreferences.Editor sharedEditor = getSharedPreferences("CollegeContacts",MODE_PRIVATE).edit();
+                sharedEditor.putString("email",collegeContactsClass.getEmail());
+                sharedEditor.putString("website",collegeContactsClass.getWebsite());
+                sharedEditor.putString("phoneno",collegeContactsClass.getPhone_no());
+                sharedEditor.apply();
+
             }
 
             @Override
@@ -193,36 +193,6 @@ public class LabDetailsActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(postListener2);
 
 
-        //date and time
-//        databaseReference = firebaseDatabase.getReference();
-//        String key_time = databaseReference.push().getKey();
-//        Map<String, Object> value = new HashMap<>();
-//        value.put("purpose", "To get time.");
-//        value.put("timestamp", ServerValue.TIMESTAMP);
-//        databaseReference.child(key_time).setValue(value);
-//
-//
-//        Query query_date = databaseReference.child(key_time);
-//        query_date.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                timeClass = dataSnapshot.getValue(TimeClass.class);
-//                node = timeClass.getTimestamp();
-//                Log.w("date", ""+node);
-//                Date date = new Date(node);                                       //for testing
-//                SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");//for testing
-//                String today = sdf.format(date);//for testing
-//                Log.w("date", today);
-//                SharedPreferences.Editor editor = getSharedPreferences("Date", MODE_PRIVATE).edit();
-//                editor.putString("current_date", today);
-//                editor.apply();
-//            }
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//            }
-//        });
-//        databaseReference = databaseReference.child(key_time);
-//        databaseReference.setValue(null);
 
         SharedPreferences prefs = getSharedPreferences("Date",MODE_PRIVATE);
         String restoredText = prefs.getString("current_date",null);
@@ -291,13 +261,6 @@ public class LabDetailsActivity extends AppCompatActivity {
                             radioButton[z].setText(temp);
                             radioButton[z].setVisibility(View.VISIBLE);
                             Log.w("Radiobutton hidden"+radioButton[z], "radioButton[z].setVisibility(View.VISIBLE);");
-
-
-//                        String temp = "Date="+button_date+"\n"+"Time="+button_time+"\n"+"Price="+button_price;
-//                        radioButton[z].setText(temp);
-//                        radioButton[z].setVisibility(View.VISIBLE);
-//                        Log.w("Radiobutton hidden","radioButton[z].setVisibility(View.VISIBLE);");
-
                     }//here
                 }
                 @Override

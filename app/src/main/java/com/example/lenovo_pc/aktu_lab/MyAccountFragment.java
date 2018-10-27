@@ -81,8 +81,10 @@ public class MyAccountFragment extends Fragment {
         mybkngs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v2) {
-                FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                Toast.makeText(v2.getContext(), "" + currentFirebaseUser.getUid(), Toast.LENGTH_SHORT).show();
+//                FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+//                Toast.makeText(v2.getContext(), "" + currentFirebaseUser.getUid(), Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(getActivity(),MyBookingRecyclerActivity.class);
+                startActivity(intent);
             }
         });
 

@@ -40,7 +40,9 @@
             android:name="com.razorpay.ApiKey"
             android:value="rzp_test_0Q9QUVz0kaWmK3" />
 
-        <activity android:name=".PersonalDetailsActivity"></activity>
+        <activity android:name=".PersonalDetailsActivity" />
+        <activity android:name=".MyBookingRecyclerActivity" />
+        <activity android:name=".MyBookingDetailsActivity"></activity>
     </application>
 
 </manifest>

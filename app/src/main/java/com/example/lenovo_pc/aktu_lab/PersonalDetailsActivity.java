@@ -13,17 +13,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.gson.Gson;
+
 import java.util.Objects;
 
 public class PersonalDetailsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
-
+    BookingUserDetailsClass bookingUserDetailsClass;
     Button button;
     EditText editTextName;
     EditText edittextRollNo;
     EditText edittextPhone;
     EditText editTextCollege;
     Spinner spinner;
+    FirebaseAuth firebaseAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,7 @@ public class PersonalDetailsActivity extends AppCompatActivity implements Adapte
         spinner.setAdapter(adapter);
         spinner.setOnItemSelectedListener(this);
         spinner.getSelectedItem().toString();
+        firebaseAuth = FirebaseAuth.getInstance();
 
 
 
@@ -58,6 +63,15 @@ public class PersonalDetailsActivity extends AppCompatActivity implements Adapte
                     editor.putString("College", editTextCollege.getText().toString());
                     editor.putString("Phone", edittextPhone.getText().toString());
                     editor.apply();
+
+                    bookingUserDetailsClass = new BookingUserDetailsClass(editTextName.getText().toString(),edittextRollNo.getText().toString(),editTextCollege.getText().toString(),edittextPhone.getText().toString(),firebaseAuth.getCurrentUser().getEmail(),firebaseAuth.getCurrentUser().getUid());
+
+                    //save class object
+                    SharedPreferences.Editor editor1 = getSharedPreferences("BOOKINGUSER",MODE_PRIVATE).edit();
+                    Gson gson = new Gson();
+                    String json = gson.toJson(bookingUserDetailsClass);
+                    editor1.putString("bookinguser",json);
+                    editor1.apply();
 
                     Intent intent = new Intent(PersonalDetailsActivity.this, Payments.class);
                     startActivity(intent);

@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
 import com.razorpay.Checkout;
 import com.razorpay.PaymentResultListener;
 
@@ -36,9 +37,14 @@ public class Payments extends AppCompatActivity implements PaymentResultListener
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
     LabDetailsClass labDetailsClass;
+    BookingLabDetailsClass bookingLabDetailsClass;
+    CollegeContactsClass collegeContactsClass;
+    TimeslotClass timeslotClass;
     MyBookingClass myBookingClass;
     String category;
     int key;
+    String main;
+    BookingUserDetailsClass bookingUserDetailsClass;
 
     int payment_final;
     @Override
@@ -51,28 +57,15 @@ public class Payments extends AppCompatActivity implements PaymentResultListener
         payment_final= spf.getInt("Price",0);
         Log.w("payment_error","aftersharedpreference");             //LOG
 
-        spf = getSharedPreferences("LabDetails",MODE_PRIVATE);
+        spf = getSharedPreferences("LabDetails",MODE_PRIVATE);      //to get path detail
+        main = spf.getString("main",null);
         category = spf.getString("category",null);
         key = spf.getInt("key",0);
-
 
         firebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
 
-//        Query query = databaseReference.child("labs").child(categotry).child(""+key);
-//        query.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                labDetailsClass = dataSnapshot.getValue(LabDetailsClass.class);
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
 
 
 
@@ -139,10 +132,40 @@ public class Payments extends AppCompatActivity implements PaymentResultListener
     public void onPaymentSuccess(String razorpayPaymentID) {
         Toast.makeText(this, "Payment successfully done! " + razorpayPaymentID, Toast.LENGTH_SHORT).show();
 
-        String temp = firebaseAuth.getCurrentUser().getUid();
+        SharedPreferences spf = getSharedPreferences("TimeSlot",MODE_PRIVATE);
+        timeslotClass = new TimeslotClass(spf.getString("Date",null),spf.getInt("Price",0),spf.getString("Time",null));
+
+        spf =getSharedPreferences("CollegeContacts",MODE_PRIVATE);
+        collegeContactsClass = new CollegeContactsClass(spf.getString("email",null),spf.getString("website",null),spf.getString("phoneno",null));
+
+        spf = getSharedPreferences("BOOKINGUSER",MODE_PRIVATE);
+        String json = spf.getString("bookinguser","");
+        Gson gson = new Gson();
+        bookingUserDetailsClass = gson.fromJson(json,BookingUserDetailsClass.class);
+
+
+        final String temp = firebaseAuth.getCurrentUser().getUid();
         myBookingClass = new MyBookingClass("labs",category,key);
-        String push_key = databaseReference.push().getKey();
-        databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).setValue(myBookingClass);
+
+        Query query = databaseReference.child(main).child(category).child(""+key);
+        query.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                labDetailsClass = dataSnapshot.getValue(LabDetailsClass.class);
+                String push_key = databaseReference.push().getKey();
+                bookingLabDetailsClass = new BookingLabDetailsClass(labDetailsClass.getAddress(),labDetailsClass.getCardimage(),labDetailsClass.getCollege_name(),labDetailsClass.getDescription(),labDetailsClass.getImage1(),labDetailsClass.getImage2(),labDetailsClass.getImage3(),push_key,labDetailsClass.getName(),labDetailsClass.getPrice_tag(),labDetailsClass.getCollege_key());
+                databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).setValue(bookingLabDetailsClass);
+                databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("time_slot").setValue(timeslotClass);
+                databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("college_contacts").setValue(collegeContactsClass);
+                databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("personal_details").setValue(bookingUserDetailsClass);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         Intent intent = new Intent(Payments.this,MainActivity.class);
         startActivity(intent);
