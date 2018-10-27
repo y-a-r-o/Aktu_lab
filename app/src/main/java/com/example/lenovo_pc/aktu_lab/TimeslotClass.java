@@ -6,6 +6,7 @@ public class TimeslotClass {
     String date;
     int price;
     String time;
+    int seats;
 
     public TimeslotClass() {
     }
@@ -38,5 +39,13 @@ public class TimeslotClass {
 
     public void setTime(String time) {
         this.time = time;
+    }
+
+    public int getSeats() {
+        return seats;
+    }
+
+    public void setSeats(int seats) {
+        this.seats = seats;
     }
 }

@@ -174,7 +174,7 @@ public class SearchFragment extends Fragment {
                         for (int i = 0; i < itemcount; i++) {
                             obj = arrayList.get(i);
                             final String s = obj.getTitle();
-                            Query query = mReference.child("labs").child(s).orderByChild("collage_name").startAt(string).endAt(string + "\uf8ff");
+                            Query query = mReference.child("labs").child(s).orderByChild("college_name").startAt(string).endAt(string + "\uf8ff");
                             query.addListenerForSingleValueEvent(new ValueEventListener() {
                                 @Override
                                 public void onDataChange(@NonNull DataSnapshot dataSnapshot) {

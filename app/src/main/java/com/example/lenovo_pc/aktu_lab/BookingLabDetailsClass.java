@@ -1,6 +1,6 @@
 package com.example.lenovo_pc.aktu_lab;
 
-public class LabDetailsClass {
+public class BookingLabDetailsClass {
     String address;
     String cardimage;
     String college_name;
@@ -8,15 +8,15 @@ public class LabDetailsClass {
     String image1;
     String image2;
     String image3;
-    int key;
+    String key;
     String name;
     String price_tag;
     String college_key;
 
-    public LabDetailsClass() {
+    public BookingLabDetailsClass() {
     }
 
-    public LabDetailsClass(String address, String cardimage, String college_name, String description, String image1, String image2, String image3, int key, String name, String price_tag, String college_key) {
+    public BookingLabDetailsClass(String address, String cardimage, String college_name, String description, String image1, String image2, String image3, String key, String name, String price_tag, String college_key) {
         this.address = address;
         this.cardimage = cardimage;
         this.college_name = college_name;
@@ -86,11 +86,11 @@ public class LabDetailsClass {
         this.image3 = image3;
     }
 
-    public int getKey() {
+    public String getKey() {
         return key;
     }
 
-    public void setKey(int key) {
+    public void setKey(String key) {
         this.key = key;
     }
 
