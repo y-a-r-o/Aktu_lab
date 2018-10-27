@@ -5,15 +5,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.lenovo_pc.aktu_lab.LoginActivity">
+    tools:context="com.example.lenovo_pc.aktu_lab.LoginActivity"
+    >
 
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:background="@color/colorSearch"
         android:gravity="top|center"
         android:orientation="vertical"
-        android:padding="@dimen/activity_horizontal_margin">
+        android:padding="@dimen/activity_horizontal_margin"
+        android:background="@drawable/app_background_image">
 
 
         <ImageView
