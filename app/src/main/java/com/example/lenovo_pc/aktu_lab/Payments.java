@@ -131,6 +131,7 @@ public class Payments extends AppCompatActivity implements PaymentResultListener
     @Override
     public void onPaymentSuccess(String razorpayPaymentID) {
 
+        final String temp_razorpayPaymentID = razorpayPaymentID;
         Toast.makeText(this, "Payment successfully done! " + razorpayPaymentID, Toast.LENGTH_SHORT).show();
 
         SharedPreferences spf = getSharedPreferences("TimeSlot",MODE_PRIVATE);
@@ -168,6 +169,40 @@ public class Payments extends AppCompatActivity implements PaymentResultListener
                             }
                             else if(i==0){
                                 Log.w("Transaction","value is zero");
+                                SharedPreferences spf =getSharedPreferences("CollegeContacts",MODE_PRIVATE);
+                                collegeContactsClass = new CollegeContactsClass(spf.getString("email",null),spf.getString("website",null),spf.getString("phoneno",null));
+
+                                spf = getSharedPreferences("BOOKINGUSER",MODE_PRIVATE);
+                                String json = spf.getString("bookinguser","");
+                                Gson gson = new Gson();
+                                bookingUserDetailsClass = gson.fromJson(json,BookingUserDetailsClass.class);
+
+
+                                final String temp = firebaseAuth.getCurrentUser().getUid();
+                                myBookingClass = new MyBookingClass("labs",category,key);
+
+                                databaseReference = firebaseDatabase.getReference();
+                                Query query = databaseReference.child(main).child(category).child(""+key);
+                                query.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                        labDetailsClass = dataSnapshot.getValue(LabDetailsClass.class);
+                                        String push_key = databaseReference.push().getKey();
+                                        bookingLabDetailsClass = new BookingLabDetailsClass(labDetailsClass.getAddress(),labDetailsClass.getCardimage(),labDetailsClass.getCollege_name(),labDetailsClass.getDescription(),labDetailsClass.getImage1(),labDetailsClass.getImage2(),labDetailsClass.getImage3(),push_key,labDetailsClass.getName(),labDetailsClass.getPrice_tag(),labDetailsClass.getCollege_key());
+                                        databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).setValue(bookingLabDetailsClass);
+//                                        databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("time_slot").setValue(timeslotClass);
+                                        databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("college_contacts").setValue(collegeContactsClass);
+                                        databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("personal_details").setValue(bookingUserDetailsClass);
+                                        databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("personal_details").child("transaction_id").setValue(temp_razorpayPaymentID);
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
+
 
                                 Intent intent = new Intent(getApplicationContext(),RefundActivity.class);
                                 startActivity(intent);
@@ -200,6 +235,7 @@ public class Payments extends AppCompatActivity implements PaymentResultListener
                                         databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("time_slot").setValue(timeslotClass);
                                         databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("college_contacts").setValue(collegeContactsClass);
                                         databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("personal_details").setValue(bookingUserDetailsClass);
+                                        databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("personal_details").child("transaction_id").setValue(temp_razorpayPaymentID);
                                     }
 
                                     @Override
@@ -230,43 +266,6 @@ public class Payments extends AppCompatActivity implements PaymentResultListener
         });
 
 
-//        Toast.makeText(this, "Payment successfully done! " + razorpayPaymentID, Toast.LENGTH_SHORT).show();
-
-//        spf =getSharedPreferences("CollegeContacts",MODE_PRIVATE);
-//        collegeContactsClass = new CollegeContactsClass(spf.getString("email",null),spf.getString("website",null),spf.getString("phoneno",null));
-//
-//        spf = getSharedPreferences("BOOKINGUSER",MODE_PRIVATE);
-//        String json = spf.getString("bookinguser","");
-//        Gson gson = new Gson();
-//        bookingUserDetailsClass = gson.fromJson(json,BookingUserDetailsClass.class);
-//
-//
-//        final String temp = firebaseAuth.getCurrentUser().getUid();
-//        myBookingClass = new MyBookingClass("labs",category,key);
-//
-//        databaseReference = firebaseDatabase.getReference();
-//        Query query = databaseReference.child(main).child(category).child(""+key);
-//        query.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                labDetailsClass = dataSnapshot.getValue(LabDetailsClass.class);
-//                String push_key = databaseReference.push().getKey();
-//                bookingLabDetailsClass = new BookingLabDetailsClass(labDetailsClass.getAddress(),labDetailsClass.getCardimage(),labDetailsClass.getCollege_name(),labDetailsClass.getDescription(),labDetailsClass.getImage1(),labDetailsClass.getImage2(),labDetailsClass.getImage3(),push_key,labDetailsClass.getName(),labDetailsClass.getPrice_tag(),labDetailsClass.getCollege_key());
-//                databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).setValue(bookingLabDetailsClass);
-//                databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("time_slot").setValue(timeslotClass);
-//                databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("college_contacts").setValue(collegeContactsClass);
-//                databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("personal_details").setValue(bookingUserDetailsClass);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
-//
-//
-//        Intent intent = new Intent(Payments.this,MainActivity.class);
-//        startActivity(intent);
     }
 
     @Override
