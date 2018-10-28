@@ -24,7 +24,7 @@
         android:layout_width="335dp"
         android:layout_height="139dp"
         android:layout_marginBottom="88dp"
-        android:text="Due to some technical issue, your paymnet cannot be processed. If any amount deducted will be credited in your source account into few working days."
+        android:text="Due to some technical issue, your paymnet cannot be processed. If any amount deducted will be credited into your source account within few working days."
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteX="25dp" />
