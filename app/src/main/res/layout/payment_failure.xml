@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/payfailure"
+        android:layout_width="wrap_content"
+        android:layout_height="66dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="Booking Failure"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.952"
+        tools:layout_editor_absoluteX="54dp" />
+
+    <TextView
+        android:id="@+id/info"
+        android:layout_width="335dp"
+        android:layout_height="139dp"
+        android:layout_marginBottom="88dp"
+        android:text="Due to some technical issue, your paymnet cannot be processed. If any amount deducted will be credited in your source account into few working days."
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:layout_editor_absoluteX="25dp" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="130dp"
+        android:layout_height="200dp"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/info"
+        app:srcCompat="@drawable/fail"
+        tools:layout_editor_absoluteX="127dp" />
+</android.support.constraint.ConstraintLayout>
