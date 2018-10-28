@@ -42,7 +42,8 @@
 
         <activity android:name=".PersonalDetailsActivity" />
         <activity android:name=".MyBookingRecyclerActivity" />
-        <activity android:name=".MyBookingDetailsActivity"></activity>
+        <activity android:name=".MyBookingDetailsActivity" />
+        <activity android:name=".RefundActivity"></activity>
     </application>
 
 </manifest>
