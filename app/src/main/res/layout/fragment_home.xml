@@ -67,7 +67,8 @@
             android:layout_width="0dp"
             android:layout_height="140dp"
             android:layout_margin="10dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            app:cardCornerRadius="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -106,7 +107,8 @@
             android:layout_width="0dp"
             android:layout_height="140dp"
             android:layout_margin="10dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            app:cardCornerRadius="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -143,7 +145,8 @@
             android:layout_width="0dp"
             android:layout_height="140dp"
             android:layout_margin="10dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            app:cardCornerRadius="12dp">
 
             <LinearLayout
                 android:layout_width="match_parent"
