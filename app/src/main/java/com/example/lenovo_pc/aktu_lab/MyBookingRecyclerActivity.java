@@ -23,6 +23,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class MyBookingRecyclerActivity extends AppCompatActivity {
 
@@ -40,6 +41,7 @@ public class MyBookingRecyclerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         TextView test;
         setContentView(R.layout.activity_card_recycler);

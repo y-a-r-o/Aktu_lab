@@ -30,6 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 public class LabDetailsActivity extends AppCompatActivity {
@@ -77,6 +78,7 @@ public class LabDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       // Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_lab_details);
         final int key = getIntent().getIntExtra("key", 0);
         final String category = getIntent().getStringExtra("category");

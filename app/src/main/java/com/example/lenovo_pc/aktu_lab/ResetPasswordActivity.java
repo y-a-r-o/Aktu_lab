@@ -14,6 +14,8 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.Objects;
+
 public class ResetPasswordActivity extends AppCompatActivity {
 
     private EditText inputEmail;
@@ -24,6 +26,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_reset_password);
 
         inputEmail = (EditText) findViewById(R.id.email1);

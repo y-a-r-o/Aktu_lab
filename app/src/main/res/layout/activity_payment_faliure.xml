@@ -10,31 +10,40 @@
         android:id="@+id/payfailure"
         android:layout_width="wrap_content"
         android:layout_height="66dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:text="Booking Failure"
         android:textSize="40sp"
         app:layout_constraintBottom_toTopOf="@+id/imageView3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.952"
-        tools:layout_editor_absoluteX="54dp" />
+        app:layout_constraintVertical_bias="0.952" />
 
     <TextView
         android:id="@+id/info"
         android:layout_width="335dp"
         android:layout_height="139dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="88dp"
-        android:text="Due to some technical issue, your paymnet cannot be processed. If any amount deducted will be credited into your source account within few working days."
+        android:text="Sorry you seat is not booked as some one booked it first,your money will be refunded as soon as possible"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        tools:layout_editor_absoluteX="25dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <ImageView
         android:id="@+id/imageView3"
         android:layout_width="130dp"
         android:layout_height="200dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
         android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toTopOf="@+id/info"
-        app:srcCompat="@drawable/fail"
-        tools:layout_editor_absoluteX="127dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/fail" />
 </android.support.constraint.ConstraintLayout>

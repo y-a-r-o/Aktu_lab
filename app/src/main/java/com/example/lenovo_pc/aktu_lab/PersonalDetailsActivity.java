@@ -32,6 +32,7 @@ public class PersonalDetailsActivity extends AppCompatActivity implements Adapte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_personal_details);
         Objects.requireNonNull(getSupportActionBar()).hide();
 

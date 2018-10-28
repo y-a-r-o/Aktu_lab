@@ -21,6 +21,7 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class CardRecyclerActivity extends AppCompatActivity {
 
@@ -36,6 +37,7 @@ public class CardRecyclerActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Objects.requireNonNull(getSupportActionBar()).hide();
         Intent intent = getIntent();
         final String string = intent.getStringExtra("key");
         TextView test;
