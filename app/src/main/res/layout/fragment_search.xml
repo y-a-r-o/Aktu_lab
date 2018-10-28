@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchFragment">
+    tools:context=".SearchFragment"
+    >
 
     <!-- TODO: Update blank fragment layout -->
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorSearch">
+        android:background="@drawable/app_background_image">
 
         <ImageButton
             android:id="@+id/searchbutton"
