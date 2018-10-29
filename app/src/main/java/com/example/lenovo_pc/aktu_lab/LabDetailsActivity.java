@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -52,7 +53,7 @@ public class LabDetailsActivity extends AppCompatActivity {
     TextView address;
 
     ScrollView scrollView;
-    FloatingActionButton floatingActionButton;
+//    FloatingActionButton floatingActionButton;
     int previousScrollY;
 
     TimeClass timeClass;
@@ -64,6 +65,7 @@ public class LabDetailsActivity extends AppCompatActivity {
     TextView Phone;
 
 
+    Button bookbutton;
     RadioGroup radioGroup;
     RadioButton radioButton[] = new RadioButton[7];
     final String rbtime[] = {"time1", "time2", "time3", "time4", "time5", "time6", "time7",};
@@ -114,8 +116,9 @@ public class LabDetailsActivity extends AppCompatActivity {
         Website = (TextView) findViewById(R.id.website2);
         Phone = (TextView) findViewById(R.id.phone);
 
+        bookbutton = findViewById(R.id.book);
         scrollView = (ScrollView) findViewById(R.id.scrollview);
-        floatingActionButton = (FloatingActionButton) findViewById(R.id.bookbtn);
+//        floatingActionButton = (FloatingActionButton) findViewById(R.id.bookbtn);
         previousScrollY = scrollView.getScrollY();
 
         node = 1540231525137L;
@@ -292,22 +295,12 @@ public class LabDetailsActivity extends AppCompatActivity {
         }//end of for
 
 
-        scrollView.getViewTreeObserver().addOnScrollChangedListener(new ViewTreeObserver.OnScrollChangedListener() {
-            @Override
-            public void onScrollChanged() {
-                if (scrollView.getScrollY() > previousScrollY && floatingActionButton.getVisibility() == View.VISIBLE) {
-                    floatingActionButton.hide();
-                } else if (scrollView.getScrollY() < previousScrollY && floatingActionButton.getVisibility() != View.VISIBLE) {
-                    floatingActionButton.show();
-                }
-                previousScrollY = scrollView.getScrollY();
-            }
-        });
-//    });
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+
+
+        bookbutton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 if (radioGroup.getCheckedRadioButtonId() == -1) {
                     Toast.makeText(getApplicationContext(), "Please select one of the available dates...", Toast.LENGTH_LONG).show();
                 } else {
@@ -336,6 +329,7 @@ public class LabDetailsActivity extends AppCompatActivity {
                 }
             }
         });
+
         // to hide the unedited radio buttons
         for(int a=0;a<7;a++) {
             String test ="RadioButton";

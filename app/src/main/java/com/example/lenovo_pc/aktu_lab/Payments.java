@@ -204,7 +204,7 @@ public class Payments extends AppCompatActivity implements PaymentResultListener
 
 
 
-                                Intent intent = new Intent(getApplicationContext(),RefundActivity.class);
+                                Intent intent = new Intent(getApplicationContext(),BookingFaliure.class);
                                 startActivity(intent);
 
                                 return Transaction.abort();
