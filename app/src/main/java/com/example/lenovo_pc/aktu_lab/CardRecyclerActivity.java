@@ -33,6 +33,7 @@ public class CardRecyclerActivity extends AppCompatActivity {
     RecyclerView.Adapter mAdapter;
     Context mContext;
     ProgressBar progressBar;
+    TextView sorry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,8 @@ public class CardRecyclerActivity extends AppCompatActivity {
         mLayout= new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(mLayout);
         data = new ArrayList<>();
+        sorry = findViewById(R.id.sorry);
+        sorry.setVisibility(View.GONE);
 
 
 

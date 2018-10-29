@@ -64,8 +64,10 @@
         <activity
             android:name=".MyBookingDetailsActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".BookingFaliure"
-            android:screenOrientation="portrait" ></activity>
+        <activity
+            android:name=".BookingFaliure"
+            android:screenOrientation="portrait" />
+        <activity android:name=".NotConnected"></activity>
     </application>
 
 </manifest>

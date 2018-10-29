@@ -1,7 +1,10 @@
 package com.example.lenovo_pc.aktu_lab;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -41,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_main);
 //        getDatebyApoorvandYash();                //to get date
+        checkConnection();
         getDatebyApoorvandYash();                //to get date
         navigation = findViewById(R.id.navigation);
         mainframe = findViewById(R.id.mainframe);
@@ -130,5 +134,24 @@ public class MainActivity extends AppCompatActivity {
         thread.start();
 
 
+    }
+
+    protected boolean isOnline() {
+        ConnectivityManager cm = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo netInfo = cm.getActiveNetworkInfo();
+        if (netInfo != null && netInfo.isConnectedOrConnecting()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    public void checkConnection(){
+        if(isOnline()){
+//            Toast.makeText(MainActivity.this, "You are connected to Internet", Toast.LENGTH_SHORT).show();
+        }else{
+            Intent  intent = new Intent(getApplicationContext(),NotConnected.class);
+            startActivity(intent);
+//            Toast.makeText(MainActivity.this, "You are not connected to Internet", Toast.LENGTH_SHORT).show();
+        }
     }
 }

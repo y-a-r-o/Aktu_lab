@@ -223,33 +223,18 @@ public class MyBookingDetailsActivity extends AppCompatActivity {
         databaseReference.addValueEventListener(postListener3);
 
 
-        databaseReference = firebaseDatabase.getReference().child("users").child(uid).child("mybookings").child(key);
-        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+        Query query1 = databaseReference.child("users").child(uid).child("mybookings").child(key).child("time_slot");
+        query1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.hasChild("time_slot")) {
-                    ValueEventListener postListener = new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            if(dataSnapshot.hasChild("Date")) {
-                                timeslotClass = dataSnapshot.child("users").child(uid).child("mybookings").child(key).child("time_slot").getValue(TimeslotClass.class);
-                                String temp = "Date - " + timeslotClass.getDate();
-                                date.setText(temp);
-                                temp = "Time - " + timeslotClass.getTime();
-                                time.setText(temp);
-                                temp = "Price - " + timeslotClass.getPrice();
-                                price.setText(temp);
-                            }
-                            else{
-                                cardView.setVisibility(View.GONE);
-                            }
-                        }
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError databaseError) {
-                            Toast.makeText(mContext, "Database Error Occured...", Toast.LENGTH_SHORT).show();
-                        }
-                    };
-                    databaseReference.addValueEventListener(postListener);
+                if(dataSnapshot.exists()) {
+                    timeslotClass = dataSnapshot.getValue(TimeslotClass.class);
+                    String temp = "Date - " + timeslotClass.getDate();
+                    date.setText(temp);
+                    temp = "Time - " + timeslotClass.getTime();
+                    time.setText(temp);
+                    temp = "Price - " + timeslotClass.getPrice();
+                    price.setText(temp);
                 }
                 else{
                     cardView.setVisibility(View.GONE);
@@ -262,6 +247,32 @@ public class MyBookingDetailsActivity extends AppCompatActivity {
 
             }
         });
+
+//        ValueEventListener postListener = new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+////                            if(dataSnapshot.hasChild("Date")) {
+//                timeslotClass = dataSnapshot.child("users").child(uid).child("mybookings").child(key).child("time_slot").getValue(TimeslotClass.class);
+//                if (dataSnapshot.hasChild("date"))
+//                {
+//                   String temp = "Date - " + timeslotClass.getDate();
+//                   date.setText(temp);
+//                   temp = "Time - " + timeslotClass.getTime();
+//                   time.setText(temp);
+//                   temp = "Price - " + timeslotClass.getPrice();
+//                   price.setText(temp);
+//                }
+//                else{
+//                    cardView.setVisibility(View.GONE);
+//                    cardView2.setVisibility(View.VISIBLE);
+//                }
+//            }
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//                Toast.makeText(mContext, "Database Error Occured...", Toast.LENGTH_SHORT).show();
+//            }
+//        };
+//        databaseReference.addValueEventListener(postListener);
 
 
 

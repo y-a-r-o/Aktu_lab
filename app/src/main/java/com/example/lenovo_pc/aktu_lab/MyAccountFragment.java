@@ -108,7 +108,6 @@ public class MyAccountFragment extends Fragment {
 
 
         mSignOut=(Button) view.findViewById(R.id.signout);
-
         setupFirebaseListener();
 
         mSignOut.setOnClickListener(new View.OnClickListener() {

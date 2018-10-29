@@ -194,6 +194,11 @@ public class Payments extends AppCompatActivity implements PaymentResultListener
                                         databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("college_contacts").setValue(collegeContactsClass);
                                         databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("personal_details").setValue(bookingUserDetailsClass);
                                         databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("personal_details").child("transaction_id").setValue(temp_razorpayPaymentID);
+                                        //to save data in the booking faliure class
+                                        databaseReference = firebaseDatabase.getReference();
+                                        databaseReference.child("bookings_faliure").child(""+push_key).child("personal_details").setValue(bookingUserDetailsClass);
+                                        databaseReference.child("bookings_faliure").child(""+push_key).child("personal_details").child("transaction_id").setValue(temp_razorpayPaymentID);
+                                        databaseReference.child("bookings_faliure").child(""+push_key).child("personal_details").child("refunded").setValue("false");
                                     }
 
                                     @Override
@@ -204,7 +209,7 @@ public class Payments extends AppCompatActivity implements PaymentResultListener
 
 
 
-                                Intent intent = new Intent(getApplicationContext(),RefundActivity.class);
+                                Intent intent = new Intent(getApplicationContext(),BookingFaliure.class);
                                 startActivity(intent);
 
                                 return Transaction.abort();
@@ -236,6 +241,11 @@ public class Payments extends AppCompatActivity implements PaymentResultListener
                                         databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("college_contacts").setValue(collegeContactsClass);
                                         databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("personal_details").setValue(bookingUserDetailsClass);
                                         databaseReference.child("users").child(temp).child("mybookings").child(""+push_key).child("personal_details").child("transaction_id").setValue(temp_razorpayPaymentID);
+                                        //to save data in the booking faliure class
+                                        databaseReference = firebaseDatabase.getReference();
+                                        databaseReference.child("bookings_done").child(labDetailsClass.getCollege_key()).child(""+labDetailsClass.getKey()).child(timeslotClass.getDate()).child(""+push_key).child("personal_details").setValue(bookingUserDetailsClass);
+                                        databaseReference.child("bookings_done").child(labDetailsClass.getCollege_key()).child(""+labDetailsClass.getKey()).child(timeslotClass.getDate()).child(""+push_key).child("personal_details").child("transaction_id").setValue(temp_razorpayPaymentID);
+
                                     }
 
                                     @Override
@@ -261,7 +271,6 @@ public class Payments extends AppCompatActivity implements PaymentResultListener
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
             }
         });
 
