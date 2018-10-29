@@ -19,6 +19,7 @@
         <activity
             android:name=".Splashscreen"
             android:label="@string/app_name"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,24 +27,45 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity" />
-        <activity android:name=".SignupActivity" />
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".CardRecyclerActivity" />
-        <activity android:name=".ResetPasswordActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SignupActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CardRecyclerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ResetPasswordActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LabDetailsActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".Payments" />
+        <activity
+            android:name=".Payments"
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.razorpay.ApiKey"
+            android:screenOrientation="portrait"
             android:value="rzp_test_0Q9QUVz0kaWmK3" />
 
-        <activity android:name=".PersonalDetailsActivity" />
-        <activity android:name=".MyBookingRecyclerActivity" />
-        <activity android:name=".MyBookingDetailsActivity" />
-        <activity android:name=".RefundActivity"></activity>
+        <activity
+            android:name=".PersonalDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MyBookingRecyclerActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".MyBookingDetailsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".BookingFaliure"
+            android:screenOrientation="portrait" ></activity>
     </application>
 
 </manifest>

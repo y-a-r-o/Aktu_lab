@@ -24,6 +24,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Objects;
+
 public class MyBookingDetailsActivity extends AppCompatActivity {
     FirebaseDatabase firebaseDatabase;
     DatabaseReference databaseReference;
@@ -79,6 +81,7 @@ public class MyBookingDetailsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_my_booking_details);
         final String key = getIntent().getStringExtra("key");
         final String category = getIntent().getStringExtra("category");
@@ -228,6 +231,7 @@ public class MyBookingDetailsActivity extends AppCompatActivity {
                     ValueEventListener postListener = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.hasChild("Date")) {
                                 timeslotClass = dataSnapshot.child("users").child(uid).child("mybookings").child(key).child("time_slot").getValue(TimeslotClass.class);
                                 String temp = "Date - " + timeslotClass.getDate();
                                 date.setText(temp);
@@ -235,6 +239,10 @@ public class MyBookingDetailsActivity extends AppCompatActivity {
                                 time.setText(temp);
                                 temp = "Price - " + timeslotClass.getPrice();
                                 price.setText(temp);
+                            }
+                            else{
+                                cardView.setVisibility(View.GONE);
+                            }
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {
