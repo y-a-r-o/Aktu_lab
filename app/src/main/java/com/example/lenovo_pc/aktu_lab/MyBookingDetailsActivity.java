@@ -7,7 +7,9 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.CardView;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -30,6 +32,7 @@ public class MyBookingDetailsActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     Context mContext;
     BookingLabDetailsClass details;
+    BookingUserDetailsClass bookingUserDetailsClass;
     ViewPager viewPager;
     ViewPagerAdapter viewPagerAdapter;
     //for dots
@@ -56,6 +59,17 @@ public class MyBookingDetailsActivity extends AppCompatActivity {
     TextView date;
     TextView time;
     TextView price;
+
+
+    TextView studentname;
+    TextView college;
+    TextView studentphone;
+    TextView studentrollno;
+    TextView transid;
+
+
+    CardView cardView;
+    CardView cardView2;
 
 
     private static final String TAG = "LabDetailsActivity";
@@ -86,6 +100,10 @@ public class MyBookingDetailsActivity extends AppCompatActivity {
         description = (TextView) findViewById(R.id.description1);
         address = (TextView) findViewById(R.id.address1);
 
+        cardView = findViewById(R.id.cardView4);
+        cardView2 = findViewById(R.id.pay_unsuccess);
+        cardView2.setVisibility(View.GONE);
+
         Email = (TextView) findViewById(R.id.email1);
         Website = (TextView) findViewById(R.id.website2);
         Phone = (TextView) findViewById(R.id.phone1);
@@ -93,6 +111,16 @@ public class MyBookingDetailsActivity extends AppCompatActivity {
         date = findViewById(R.id.date);
         time = findViewById(R.id.time);
         price = findViewById(R.id.price);
+
+        //from here
+
+        studentname = findViewById(R.id.studentname);
+        college = findViewById(R.id.college);
+        studentphone = findViewById(R.id.studentphone);
+        studentrollno = findViewById(R.id.rollno);
+        transid = findViewById(R.id.transid);
+
+
 
         scrollView = (ScrollView) findViewById(R.id.scrollview);
         previousScrollY = scrollView.getScrollY();
@@ -170,16 +198,21 @@ public class MyBookingDetailsActivity extends AppCompatActivity {
         };
         databaseReference.addValueEventListener(postListener2);
 
-        ValueEventListener postListener = new ValueEventListener() {
+
+        ValueEventListener postListener3 = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                timeslotClass = dataSnapshot.child("users").child(uid).child("mybookings").child(key).child("time_slot").getValue(TimeslotClass.class);
-                String temp = "Date - "+timeslotClass.getDate();
-                date.setText(temp);
-                temp = "Time - "+timeslotClass.getTime();
-                time.setText(temp);
-                temp = "Price - "+timeslotClass.getPrice();
-                price.setText(temp);
+                bookingUserDetailsClass= dataSnapshot.child("users").child(uid).child("mybookings").child(key).child("personal_details").getValue(BookingUserDetailsClass.class);
+                String temp = "Name - "+bookingUserDetailsClass.getName();
+                studentname.setText(temp);
+                temp = "College - "+bookingUserDetailsClass.getCollege();
+                college.setText(temp);
+                temp = "Phone Number- "+bookingUserDetailsClass.getPhone();
+                studentphone.setText(temp);
+                temp = "Roll Number - "+bookingUserDetailsClass.getRollno();
+                studentrollno.setText(temp);
+                temp = "Transaction ID - "+bookingUserDetailsClass.getTransaction_id();
+                transid.setText(temp);
             }
 
             @Override
@@ -187,7 +220,44 @@ public class MyBookingDetailsActivity extends AppCompatActivity {
                 Toast.makeText(mContext, "Database Error Occured...", Toast.LENGTH_SHORT).show();
             }
         };
-        databaseReference.addValueEventListener(postListener);
+        databaseReference.addValueEventListener(postListener3);
+
+
+        databaseReference = firebaseDatabase.getReference().child("users").child(uid).child("mybookings").child(key);
+        databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.hasChild("time_slot")) {
+                    ValueEventListener postListener = new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            timeslotClass = dataSnapshot.child("users").child(uid).child("mybookings").child(key).child("time_slot").getValue(TimeslotClass.class);
+                                String temp = "Date - " + timeslotClass.getDate();
+                                date.setText(temp);
+                                temp = "Time - " + timeslotClass.getTime();
+                                time.setText(temp);
+                                temp = "Price - " + timeslotClass.getPrice();
+                                price.setText(temp);
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+                            Toast.makeText(mContext, "Database Error Occured...", Toast.LENGTH_SHORT).show();
+                        }
+                    };
+                    databaseReference.addValueEventListener(postListener);
+                }
+                else{
+                    cardView.setVisibility(View.GONE);
+                    cardView2.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
 
 //    });

@@ -7,6 +7,7 @@ public class BookingUserDetailsClass {
     String phone;
     String account_email;
     String account_uid;
+    String transaction_id;
 
     public BookingUserDetailsClass() {
     }
@@ -66,5 +67,13 @@ public class BookingUserDetailsClass {
 
     public void setAccount_uid(String account_uid) {
         this.account_uid = account_uid;
+    }
+
+    public String getTransaction_id() {
+        return transaction_id;
+    }
+
+    public void setTransaction_id(String transaction_id) {
+        this.transaction_id = transaction_id;
     }
 }

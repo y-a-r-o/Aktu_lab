@@ -10,7 +10,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,7 +35,7 @@ public class PersonalDetailsActivity extends AppCompatActivity implements Adapte
         setContentView(R.layout.activity_personal_details);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-        editTextName=findViewById(R.id.Name);
+        editTextName=findViewById(R.id.studentname);
         edittextRollNo=findViewById(R.id.rollno);
         edittextPhone=findViewById(R.id.Phoneno);
         editTextCollege=findViewById(R.id.collegename1);
@@ -48,8 +47,6 @@ public class PersonalDetailsActivity extends AppCompatActivity implements Adapte
         spinner.setOnItemSelectedListener(this);
         spinner.getSelectedItem().toString();
         firebaseAuth = FirebaseAuth.getInstance();
-
-
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override
