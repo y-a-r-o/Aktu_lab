@@ -231,13 +231,18 @@ public class MyBookingDetailsActivity extends AppCompatActivity {
                     ValueEventListener postListener = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            timeslotClass = dataSnapshot.child("users").child(uid).child("mybookings").child(key).child("time_slot").getValue(TimeslotClass.class);
+                            if(dataSnapshot.hasChild("Date")) {
+                                timeslotClass = dataSnapshot.child("users").child(uid).child("mybookings").child(key).child("time_slot").getValue(TimeslotClass.class);
                                 String temp = "Date - " + timeslotClass.getDate();
                                 date.setText(temp);
                                 temp = "Time - " + timeslotClass.getTime();
                                 time.setText(temp);
                                 temp = "Price - " + timeslotClass.getPrice();
                                 price.setText(temp);
+                            }
+                            else{
+                                cardView.setVisibility(View.GONE);
+                            }
                         }
                         @Override
                         public void onCancelled(@NonNull DatabaseError databaseError) {

@@ -69,13 +69,13 @@ public class MyAccountFragment extends Fragment {
         View view= inflater.inflate(R.layout.fragment_my_account, container, false);
         context =getActivity();
         targetImage = view.findViewById(R.id.imageview1);
-        targetImage.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View arg0) {
-                Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(i, 0);
-            }
-        });
+//        targetImage.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View arg0) {
+//                Intent i = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//                startActivityForResult(i, 0);
+//            }
+//        });
 
         mybkngs=view.findViewById(R.id.mybookings);
         mybkngs.setOnClickListener(new View.OnClickListener() {
@@ -93,11 +93,18 @@ public class MyAccountFragment extends Fragment {
             @Override
             public void onClick(View v2) {
                 FirebaseUser currentFirebaseUser = FirebaseAuth.getInstance().getCurrentUser();
-                openDialog(currentFirebaseUser.getUid());
+                openDialog("Your Registered email ID is",currentFirebaseUser.getEmail());
 
             }
         });
+        cntctus=view.findViewById(R.id.contactus);
+        cntctus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v2) {
+                openDialog("Kindly contact us on -","aktulabs@aktu.ac.in");
 
+            }
+        });
 
 
         mSignOut=(Button) view.findViewById(R.id.signout);
@@ -114,108 +121,60 @@ public class MyAccountFragment extends Fragment {
         return view;
     }
 
-    public void openDialog(String string) {
-
-
+    public void openDialog(String string,String string2) {
 
         AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
-
-
 
         // Set Custom Title
 
         TextView title = new TextView(context);
-
         // Title Properties
-
-        title.setText("Custom Dialog Box");
-
+        title.setText(string);
         title.setPadding(10, 10, 10, 10);   // Set Position
-
         title.setGravity(Gravity.CENTER);
-
         title.setTextColor(Color.BLACK);
-
         title.setTextSize(20);
-
         alertDialog.setCustomTitle(title);
-
-
-
         // Set Message
-
         TextView msg = new TextView(context);
-
         // Message Properties
-
-        msg.setText("I am a Custom Dialog Box. \n Please Customize me.");
-
+        msg.setText(string2);
         msg.setGravity(Gravity.CENTER_HORIZONTAL);
-
         msg.setTextColor(Color.BLACK);
-
         alertDialog.setView(msg);
-
-
-
         // Set Button
-
         // you can more buttons
-
-        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL,"OK", new DialogInterface.OnClickListener() {
-
-            public void onClick(DialogInterface dialog, int which) {
-
-                // Perform Action on Button
-
-            }
-
-        });
-
-
-
+//        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL,"OK", new DialogInterface.OnClickListener() {
+//
+//            public void onClick(DialogInterface dialog, int which) {
+//                // Perform Action on Button
+//
+//            }
+//
+//        });
         alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE,"CANCEL", new DialogInterface.OnClickListener() {
 
             public void onClick(DialogInterface dialog, int which) {
-
                 // Perform Action on Button
-
             }
 
         });
-
-
-
         new Dialog(getActivity());
-
         alertDialog.show();
-
-
-
         // Set Properties for OK Button
 
         final Button okBT = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
-
         LinearLayout.LayoutParams neutralBtnLP = (LinearLayout.LayoutParams) okBT.getLayoutParams();
-
         neutralBtnLP.gravity = Gravity.FILL_HORIZONTAL;
-
         okBT.setPadding(50, 10, 10, 10);   // Set Position
-
         okBT.setTextColor(Color.BLUE);
-
         okBT.setLayoutParams(neutralBtnLP);
-
-
 
         final Button cancelBT = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
 
         LinearLayout.LayoutParams negBtnLP = (LinearLayout.LayoutParams) okBT.getLayoutParams();
-
         negBtnLP.gravity = Gravity.FILL_HORIZONTAL;
-
         cancelBT.setTextColor(Color.RED);
-
         cancelBT.setLayoutParams(negBtnLP);
 
     }

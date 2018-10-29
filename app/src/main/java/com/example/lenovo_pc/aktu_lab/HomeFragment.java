@@ -1,7 +1,11 @@
 package com.example.lenovo_pc.aktu_lab;
 
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -9,12 +13,14 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.CardView;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -113,10 +119,83 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        csmnr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialog("Sorry no records found.");
+            }
+        });
+
+        cevnt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                openDialog("Sorry no records found.");
+            }
+        });
         // Inflate the layout for this fragment
         return view;
+
+
     }
 
+
+    public void openDialog(String string) {
+
+        AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+
+        // Set Custom Title
+
+        TextView title = new TextView(context);
+        // Title Properties
+        title.setText("This section is yet to be added");
+        title.setPadding(10, 10, 10, 10);   // Set Position
+        title.setGravity(Gravity.CENTER);
+        title.setTextColor(Color.BLACK);
+        title.setTextSize(20);
+        alertDialog.setCustomTitle(title);
+        // Set Message
+        TextView msg = new TextView(context);
+        // Message Properties
+        msg.setText(string);
+        msg.setGravity(Gravity.CENTER_HORIZONTAL);
+        msg.setTextColor(Color.BLACK);
+        alertDialog.setView(msg);
+        // Set Button
+        // you can more buttons
+//        alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL,"OK", new DialogInterface.OnClickListener() {
+//
+//            public void onClick(DialogInterface dialog, int which) {
+//                // Perform Action on Button
+//
+//            }
+//
+//        });
+        alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE,"CANCEL", new DialogInterface.OnClickListener() {
+
+            public void onClick(DialogInterface dialog, int which) {
+                // Perform Action on Button
+            }
+
+        });
+        new Dialog(getActivity());
+        alertDialog.show();
+        // Set Properties for OK Button
+
+        final Button okBT = alertDialog.getButton(AlertDialog.BUTTON_NEUTRAL);
+        LinearLayout.LayoutParams neutralBtnLP = (LinearLayout.LayoutParams) okBT.getLayoutParams();
+        neutralBtnLP.gravity = Gravity.FILL_HORIZONTAL;
+        okBT.setPadding(50, 10, 10, 10);   // Set Position
+        okBT.setTextColor(Color.BLUE);
+        okBT.setLayoutParams(neutralBtnLP);
+
+        final Button cancelBT = alertDialog.getButton(AlertDialog.BUTTON_NEGATIVE);
+
+        LinearLayout.LayoutParams negBtnLP = (LinearLayout.LayoutParams) okBT.getLayoutParams();
+        negBtnLP.gravity = Gravity.FILL_HORIZONTAL;
+        cancelBT.setTextColor(Color.RED);
+        cancelBT.setLayoutParams(negBtnLP);
+
+    }
 //    public class MyTimerTask extends TimerTask {
 //
 //        @Override
