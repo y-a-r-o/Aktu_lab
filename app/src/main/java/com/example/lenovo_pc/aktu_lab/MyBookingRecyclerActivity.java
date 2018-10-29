@@ -37,6 +37,7 @@ public class MyBookingRecyclerActivity extends AppCompatActivity {
     ProgressBar progressBar;
     FirebaseAuth firebaseAuth;
     String uid;
+    TextView sorry;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,21 +59,28 @@ public class MyBookingRecyclerActivity extends AppCompatActivity {
         mLayout= new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(mLayout);
         data = new ArrayList<>();
+        sorry = findViewById(R.id.sorry);
+        sorry.setVisibility(View.GONE);
 
 
 
         firebaseAuth= FirebaseAuth.getInstance();
         uid = firebaseAuth.getCurrentUser().getUid();
-        Query query = mReference.child("users").child(uid).child("mybookings");                                                               //here
+        Query query = mReference.child("users").child(uid).child("mybookings");              //here
         query.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-
-                for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren()){
+                if(dataSnapshot.exists()) {
+                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                        progressBar.setVisibility(View.GONE);
+                        data.add(dataSnapshot1.getValue(MyBookingCardClass.class));
+                        mAdapter = new MyBookingRecyclerAdapter(data, mContext, "mybookings");
+                        recyclerView.setAdapter(mAdapter);
+                    }
+                }
+                else{
+                    sorry.setVisibility(View.VISIBLE);
                     progressBar.setVisibility(View.GONE);
-                    data.add(dataSnapshot1.getValue(MyBookingCardClass.class));
-                    mAdapter = new MyBookingRecyclerAdapter(data,mContext,"mybookings");
-                    recyclerView.setAdapter(mAdapter);
                 }
             }
 

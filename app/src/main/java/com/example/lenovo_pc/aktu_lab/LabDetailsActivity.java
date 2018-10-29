@@ -1,9 +1,14 @@
 package com.example.lenovo_pc.aktu_lab;
 
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -11,6 +16,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.Button;
@@ -74,13 +80,10 @@ public class LabDetailsActivity extends AppCompatActivity {
     private static final String TAG = "LabDetailsActivity";
 
 
-    //    final int key = getIntent().getIntExtra("key", 0);
-//    final String category = getIntent().getStringExtra("category");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       // Objects.requireNonNull(getSupportActionBar()).hide();
+//        Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_lab_details);
         final int key = getIntent().getIntExtra("key", 0);
         final String category = getIntent().getStringExtra("category");
@@ -103,8 +106,8 @@ public class LabDetailsActivity extends AppCompatActivity {
         description = (TextView) findViewById(R.id.description);
         address = (TextView) findViewById(R.id.address);
 
-        radioGroup = (RadioGroup) findViewById(R.id.radiogroup);
-        radioButton[0] = (RadioButton) findViewById(R.id.radioButton1);
+        radioGroup =  findViewById(R.id.radiogroup);
+        radioButton[0] =  findViewById(R.id.radioButton1);
         radioButton[1] = (RadioButton) findViewById(R.id.radioButton2);
         radioButton[2] = (RadioButton) findViewById(R.id.radioButton3);
         radioButton[3] = (RadioButton) findViewById(R.id.radioButton4);
@@ -321,8 +324,54 @@ public class LabDetailsActivity extends AppCompatActivity {
                          editor1.putInt("Price",button_price);
                          editor1.apply();
 
-                         Intent intent = new Intent(LabDetailsActivity.this,PersonalDetailsActivity.class);
-                         startActivity(intent);
+                         databaseReference = firebaseDatabase.getReference();
+                         Query query1=databaseReference.child("labs").child(category).child(""+key).child("time_slot").orderByChild("date").equalTo(button_date);
+                         query1.addListenerForSingleValueEvent(new ValueEventListener() {
+                             @Override
+                             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                 for(DataSnapshot dataSnapshot1: dataSnapshot.getChildren())
+                                 {
+                                     TimeslotClass temp = dataSnapshot1.getValue(TimeslotClass.class);
+                                     if(temp.getSeats()==0){
+                                         AlertDialog.Builder builder;
+                                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                                             builder = new AlertDialog.Builder(LabDetailsActivity.this, android.R.style.Theme_Material_Dialog_Alert);
+                                         } else {
+                                             builder = new AlertDialog.Builder(LabDetailsActivity.this);
+                                         }
+                                         builder.setTitle("No seats available!!!")
+                                                 .setMessage("No more booking available in the current time slot.")
+                                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                                                     public void onClick(DialogInterface dialog, int which) {
+                                                         // continue with delete
+                                                     }
+                                                 })
+//                                                 .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+//                                                     public void onClick(DialogInterface dialog, int which) {
+//                                                         // do nothing
+//                                                     }
+//                                                 })
+                                                 .setIcon(android.R.drawable.ic_dialog_alert)
+                                                 .show();
+
+
+
+                                     }
+                                     else{
+                                         Intent intent = new Intent(LabDetailsActivity.this,PersonalDetailsActivity.class);
+                                         startActivity(intent);
+                                     }
+
+                                 }
+                             }
+
+                             @Override
+                             public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                             }
+                         });
+//                         Intent intent = new Intent(LabDetailsActivity.this,PersonalDetailsActivity.class);
+//                         startActivity(intent);
 
                      }
                  }
@@ -342,5 +391,6 @@ public class LabDetailsActivity extends AppCompatActivity {
             }
         }
     }
+
 
 }

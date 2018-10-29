@@ -10,6 +10,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Objects;
+
 public class NotConnected extends AppCompatActivity {
 
     TextView retry;
@@ -17,7 +19,9 @@ public class NotConnected extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_not_connected);
+        Objects.requireNonNull(getSupportActionBar()).hide();
         retry = findViewById(R.id.retrynow);
 
         retry.setOnClickListener(new View.OnClickListener() {
