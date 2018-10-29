@@ -266,25 +266,6 @@ public class MyAccountFragment extends Fragment {
                 FirebaseAuth.getInstance().removeAuthStateListener(mAuthStateListener);
             }
         }
-//The function given below is important, do not remove, will debug it later.
 
-    /*@Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RESULT_OK) {
-            Uri targetUri = data.getData();
-            Bitmap bitmap;
-            try {
-                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
-                targetImage.setImageBitmap(bitmap);
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-
-                e.printStackTrace();
-            }
-
-        }
-
-    }*/
     }
 
