@@ -8,9 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import com.squareup.picasso.Picasso;
-/**
- * Created by Sanket on 27-Feb-17.
- */
+
 public class ViewPagerAdapterHome extends PagerAdapter {
 
     private Context context;
