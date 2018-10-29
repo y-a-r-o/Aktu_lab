@@ -201,7 +201,7 @@ public class LabDetailsActivity extends AppCompatActivity {
         editor.putString("current_date", restoredText);
         editor.apply();
 
-        Toast.makeText(getApplicationContext(), restoredText, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), restoredText, Toast.LENGTH_LONG).show();
         //to increment current date +2
         //Convert the string-date into Date-date
         try {
@@ -318,7 +318,7 @@ public class LabDetailsActivity extends AppCompatActivity {
                          String button_date = prefs.getString(rbdate[i], null);
                          String button_time = prefs.getString(rbtime[i], null);
                          int button_price = prefs.getInt(rbprice[i], 0);
-                         Toast.makeText(getApplicationContext(),rbdate[i]+"->"+button_date+"\n"+rbtime[i]+"->"+button_time+"\n"+rbprice[i]+"->"+button_price , Toast.LENGTH_SHORT).show();
+//                         Toast.makeText(getApplicationContext(),rbdate[i]+"->"+button_date+"\n"+rbtime[i]+"->"+button_time+"\n"+rbprice[i]+"->"+button_price , Toast.LENGTH_SHORT).show();
 
                          SharedPreferences.Editor editor1 = getSharedPreferences("TimeSlot",MODE_PRIVATE).edit();
                          editor1.putString("Date",button_date);

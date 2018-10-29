@@ -228,7 +228,7 @@ public class MyBookingDetailsActivity extends AppCompatActivity {
                     ValueEventListener postListener = new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                            timeslotClass = dataSnapshot.child("users").child(uid).child("mybookings").child(key).child("time_slot").getValue(TimeslotClass.class);
+                                timeslotClass = dataSnapshot.child("users").child(uid).child("mybookings").child(key).child("time_slot").getValue(TimeslotClass.class);
                                 String temp = "Date - " + timeslotClass.getDate();
                                 date.setText(temp);
                                 temp = "Time - " + timeslotClass.getTime();
